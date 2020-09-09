@@ -1317,7 +1317,7 @@
 				    }
 				    get_url = function(fmt, d, std, sum, comm, train, flag, manual)
 				    {
-				    	var url = 'https://strava.conceptintegral.com:8443/strava/service/data/v1/' + (fmt == 'csvxl' ? 'csv' : fmt) + d + '/activities/' + $scope.req_athlete;
+				    	var url = 'http://77.68.88.133:8443/strava/service/data/v1/' + (fmt == 'csvxl' ? 'csv' : fmt) + d + '/activities/' + $scope.req_athlete;
 				    	p = '?';
 				    	if  (fmt == 'json' || fmt == 'jsonp')
 				    	{
