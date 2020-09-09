@@ -1,0 +1,1560 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    <title>Strava Activity Data Service</title>
+	
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+		<meta name="author" content="Martin Keys">
+		<meta name="description" content="Strava Activity Data Service" /> 
+		<meta property="og:title" content="Strava Activity Data Service"/>  
+		<meta property="og:description" content="Strava activity data service... view and download"/>  
+		<meta property="og:image" content="img/ci_sols_logo.png"/>  
+    	<link rel="icon" type="image/png" href="img/ci_sols_logo.png"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
+    </head>
+	<body>
+	    <style>
+		    table{
+		        overflow:auto;
+		        display:inline-block;
+		    }
+		    tbody,thead,tr,th {
+		        direction:ltr ;
+		    }
+			tr {
+		        direction:ltr ;
+			    white-space: nowrap;
+			}    
+	    </style>
+
+		<script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+	
+		<script src="js/angular.min.js"></script>
+		<script src="js/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+		<script src="js/popper.min.js" crossorigin="anonymous"></script>
+		<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+		<script src="js/jquery.min.js"></script>
+
+		<div class="container" ng-app="app">
+			<div ng-controller="appCtrl">
+				<div class="col-md-12">
+					<div class="wsite-spacer" style="height:10px;"></div>
+					<a href="https://www.conceptintegral.com"><img class="img-fluid" src="img/concept_integral_logo.png"></a>
+					<div class="wsite-spacer" style="height:10px;"></div>
+					<center><i><span class="text-muted">In 1975, <a href="https://en.wikipedia.org/wiki/Fred_Brooks">FredBrooks</a> said: I will contend that conceptual integrity is the most important consideration in system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas.</span></i></center>
+				</div>
+	
+				<hr class="featurette-divider"/>		
+	
+				<div class="col-md-12">
+					<h3 class="featurette-heading">Strava activity data service<span class="text-muted"> view and download</h3></span>			
+				</div>
+
+				<div class="wsite-spacer" style="height:10px;"></div>
+
+				<div class="col-md-12">
+					<div class="card">
+  						<div class="card-body">
+							<h5>Have you authorised access to your Strava data?</h5>
+							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=https://strava.conceptintegral.com:8443/strava/service/register/new"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
+							<div class="wsite-spacer" style="height:10px;"></div>
+							<div class="form-group" >
+								<input id="req_athlete" class="form-control form-control-danger" type="email" ng-model="req_athlete" ng-change="upd_req()" type="email" placeholder="Athlete Email" required/>
+							</div>
+							<div class="form-check">
+								<div class="form-check form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" type="radio" ng-model="req_std" name="req_std" value="" ng-click="upd_req()"> Athlete's unit preference</input>
+									</label>
+								</div>				
+								<div class="form-check form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" type="radio" ng-model="req_std" name="req_std" value="metric" ng-click="upd_req()"> Metric</input>
+									</label>
+								</div>				
+								<div class="form-check form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" type="radio" ng-model="req_std" name="req_std" value="imperial" ng-click="upd_req()"> Imperial</input>
+									</label>
+								</div>				
+							</div>				
+							<div class="form-group" >
+								<i><span class="text-muted">
+					  			NOTE: On initial access, the request may fail and/or some activity fields may be missing (e.g. calories and location) due to Strava and Google Maps data rate limitations. Wait a few minutes and try again for the missing data fields and faster response times.
+				  				</span></i>
+						  	</div>
+					  	</div>
+				  	</div>
+	
+					<div class="wsite-spacer" style="height:10px;"></div>
+		
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card">
+		  						<div class="card-body">
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="ride""> Ride</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="run""> Run</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="hike""> Walk</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="ski""> Ski</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="swim"> Swim</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act" name="req_act" value="workout"> Workout</input>
+											</label>
+										</div>
+									</div>				
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="all"> All</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="manual"> Manual</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="commute"> Commute</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="trainer"> On Trainer</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="flagged"> Flagged</input>
+											</label>
+										</div>				
+									</div>
+									<div class="form-group">
+										<button type="button" class="btn btn-primary" ng-click="view_act()">View Activities</button>
+								  	</div>
+							  	</div>
+						  	</div>
+					  	</div>
+						<div class="col-md-4">
+							<div class="card">
+		  						<div class="card-body">
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="combi"> All</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="ride"> Ride</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="run"> Run</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="hike"> Walk</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="ski"> Ski</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="swim"> Swim</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="workout"> Workout</input>
+											</label>
+										</div>
+									</div>				
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumq" name="req_sumq" value="all" ng-change="upd_req()"> All</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumq" name="req_sumq" value="commute" ng-change="upd_req()"> Commute</input>
+											</label>
+										</div>				
+									</div>
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_summan" name="req_summan" ng-change="upd_req()"> Manual</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_sumtrain" name="req_sumtrain" ng-change="upd_req()"> On Trainer</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_sumflag" name="req_sumflag" ng-change="upd_req()"> Flagged</input>
+											</label>
+										</div>				
+									</div>
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="all" ng-click="upd_req()"> All</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="all-mini" ng-click="upd_req()"> All Mini</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent" ng-click="upd_req()"> Recent</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent-mini" ng-click="upd_req()"> Recent Mini</input>
+											</label>
+										</div>
+									</div>				
+									<div class="form-group">
+										<button type="button" class="btn btn-primary" ng-click="view_sum()">View Summaries</button>
+								  	</div>
+							  	</div>
+						  	</div>
+					  	</div>
+						<div class="col-md-4">
+							<div class="card">
+		  						<div class="card-body">
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="csv" ng-click="upd_req()"> CSV</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="csvxl" ng-click="upd_req()"> CSV (Excel)</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="json" ng-click="upd_req()"> JSON</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="jsonp" ng-click="upd_req()"> JSON (pretty)</input>
+											</label>
+										</div>				
+									</div>
+									<div class="form-group">
+										<a href="{{req_d_url}}">{{req_d_url}}</a>
+									</div>
+									<div class="form-group">
+										<button type="button" class="btn btn-primary" ng-click="preview()">Preview</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="wsite-spacer" style="height:10px;"></div>
+
+				<div id="results" class="col-md-12">
+					<div ng-if="loading">
+						<center>
+							<img class="img-responsive" src="img/loading_bar.gif"/>
+						</center>
+					</div>
+	 	 			<div ng-if="preview_data!=''">
+						<pre>{{preview_data}}</pre>
+	 	 			</div>
+	 	 			<div ng-if="resp_err!=''" >
+		  				<div class="text-danger"><b>Error: </b>{{resp_err}}</div>
+	 	 			</div>
+	 	 			<div ng-if="resp_info!=''" >
+		  				<div class="text-info">{{resp_info}}</div>
+	 	 			</div>
+	 	 			<div ng-if="view_data.data.run.length>0 && req_sum==false && req_act=='run'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Start Town</th> 
+										<th style="text-align: center">Start City</th>
+										<th style="text-align: center">Start Country</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Finish Town</th> 
+										<th style="text-align: center">Finish City</th>
+										<th style="text-align: center">Finish Country</th>
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Pace</th>
+										<th style="text-align: center">Max Pace</th>
+										<th style="text-align: center">Min Elevation</th>
+										<th style="text-align: center">Max Elevation</th> 
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Shoe</th>
+										<th style="text-align: center">Commute</th>
+										<th style="text-align: center">On Trainer</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.run">
+									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Run</td>
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{r["start-town"]}}</td> 
+										<td>{{r["start-city"]}}</td>
+										<td>{{r["start-country"]}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{r["finish-town"]}}</td> 
+										<td>{{r["finish-city"]}}</td>
+										<td>{{r["finish-country"]}}</td>
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td ng-if="r['max-pace']" style="text-align: right">{{get_time_display(r["max-pace"])}}</td>
+										<td ng-if="!r['max-pace']" style="text-align: right"></td>
+										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{r.shoe.brand}} {{r.shoe.model}}</td>
+										<td>{{get_boolean_display(r["is-commute"])}}</td> 
+										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+					<div ng-if="view_data.data.ride.length>0 && req_sum==false && req_act=='ride'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Start Town</th> 
+										<th style="text-align: center">Start City</th>
+										<th style="text-align: center">Start Country</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Finish Town</th> 
+										<th style="text-align: center">Finish City</th>
+										<th style="text-align: center">Finish Country</th>
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Max Speed</th>
+										<th style="text-align: center">Min Elevation</th>
+										<th style="text-align: center">Max Elevation</th> 
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Avg Cadence</th>
+										<th style="text-align: center">Kilojoules</th>
+										<th style="text-align: center">Avg Watts</th>
+										<th style="text-align: center">Max Watts</th>
+										<th style="text-align: center">Weighted Avg Watts</th>
+										<th style="text-align: center">Bike</th>
+										<th style="text-align: center">Commute</th>
+										<th style="text-align: center">On Trainer</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.ride">
+									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Ride</td>
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{r["start-town"]}}</td> 
+										<td>{{r["start-city"]}}</td>
+										<td>{{r["start-country"]}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{r["finish-town"]}}</td> 
+										<td>{{r["finish-city"]}}</td>
+										<td>{{r["finish-country"]}}</td>
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r.kilojoules,0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-watts"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-watts"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts"],0)}}</td>
+										<td>{{r.bike.name}}</td>
+										<td>{{get_boolean_display(r["is-commute"])}}</td> 
+										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+					<div ng-if="view_data.data.hike.length>0 && req_sum==false && req_act=='hike'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Start Town</th> 
+										<th style="text-align: center">Start City</th>
+										<th style="text-align: center">Start Country</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Finish Town</th> 
+										<th style="text-align: center">Finish City</th>
+										<th style="text-align: center">Finish Country</th>
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Pace</th>
+										<th style="text-align: center">Max Pace</th>
+										<th style="text-align: center">Min Elevation</th>
+										<th style="text-align: center">Max Elevation</th> 
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Shoe</th>
+										<th style="text-align: center">Commute</th>
+										<th style="text-align: center">On Trainer</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.hike">
+									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Walk</td>
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{r["start-town"]}}</td> 
+										<td>{{r["start-city"]}}</td>
+										<td>{{r["start-country"]}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{r["finish-town"]}}</td> 
+										<td>{{r["finish-city"]}}</td>
+										<td>{{r["finish-country"]}}</td>
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["max-pace"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{r.shoe.brand}} {{r.shoe.model}}</td>
+										<td>{{get_boolean_display(r["is-commute"])}}</td> 
+										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>					
+						</div>
+					</div>
+					<div ng-if="view_data.data.ski.length>0 && req_sum==false && req_act=='ski'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Start Town</th> 
+										<th style="text-align: center">Start City</th>
+										<th style="text-align: center">Start Country</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Finish Town</th> 
+										<th style="text-align: center">Finish City</th>
+										<th style="text-align: center">Finish Country</th>
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Max Speed</th>
+										<th style="text-align: center">Min Elevation</th>
+										<th style="text-align: center">Max Elevation</th> 
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.ski">
+									<tr ng-if="req_actq=='all' || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Ski</td>
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{r["start-town"]}}</td> 
+										<td>{{r["start-city"]}}</td>
+										<td>{{r["start-country"]}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{r["finish-town"]}}</td> 
+										<td>{{r["finish-city"]}}</td>
+										<td>{{r["finish-country"]}}</td>
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{r.bike.name}}</td>
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>		
+					<div ng-if="view_data.data.swim.length>0 && req_sum==false && req_act=='swim'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Max Speed</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.swim">
+									<tr ng-if="req_actq=='all' || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Swim</td>
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+					<div ng-if="view_data.data.workout.length>0 && req_sum==false && req_act=='workout'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">id</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">On Trainer</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Start Time</th>
+										<th style="text-align: center">Finish Time</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+										<th style="text-align: center">Max Heart Rate</th> 
+										<th style="text-align: center">Avg Temp</th> 
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">On Trainer</th>
+										<th style="text-align: center">Manual</th>
+										<th style="text-align: center">Flagged</th>
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data.data.workout">
+									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+										<td>{{$index+1}}</td>
+										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Workout</td>
+										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
+										<td>{{get_desc_display(r.description)}}</td> 
+										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
+										<td>{{get_boolean_display(r["is-manual"])}}</td> 
+										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+	 	 			<div ng-if="view_data_sum_all.length>0 && req_sum==true && req_sumact=='combi'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Active Days</th> 
+										<th style="text-align: center">Activities</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Elevation Gain</th>
+										<th style="text-align: center">Avg Calories</th>
+										<th style="text-align: center">Avg Suffer Score</th>
+										
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th> 
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_all">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>All</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+	 	 			<div ng-if="view_data_sum_run.length>0 && req_sum==true && req_sumact=='run'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Run Days</th> 
+										<th style="text-align: center">Runs</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Pace</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Elevation Gain</th>
+										<th style="text-align: center">Avg Calories</th>
+										<th style="text-align: center">Avg Suffer Score</th>
+										
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th> 
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_run">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Run</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					</div>
+					<div ng-if="view_data_sum_ride.length>0 && req_sum==true && req_sumact=='ride'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Ride Days</th> 
+										<th style="text-align: center">Rides</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Kilojoules</th>
+	
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Avg Cadence</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Elevation Gain</th>
+										<th style="text-align: center">Avg Calories</th> 
+										<th style="text-align: center">Avg Suffer Score</th> 
+										<th style="text-align: center">Avg Avg Watts</th>
+										<th style="text-align: center">Avg Weighted Avg Watts</th>
+	
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th> 
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_ride">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Ride</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r.kilojoules,0)}}</td>
+	
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["avg-watts-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts-per-activity"],0)}}</td>
+										
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div ng-if="view_data_sum_hike.length>0 && req_sum==true && req_sumact=='hike'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Walk Days</th> 
+										<th style="text-align: center">Walks</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Pace</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Elevation Gain</th>
+										<th style="text-align: center">Avg Calories</th> 
+										<th style="text-align: center">Avg Suffer Score</th> 
+	
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th> 
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_hike">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Walk</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>					
+						</div>
+					</div>
+					<div ng-if="view_data_sum_ski.length>0 && req_sum==true && req_sumact=='ski'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Ski Days</th> 
+										<th style="text-align: center">Skis</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Elevation Gain</th>
+										<th style="text-align: center">Avg Gradient</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Elevation Gain</th>
+										<th style="text-align: center">Avg Calories</th> 
+										<th style="text-align: center">Avg Suffer Score</th> 
+	
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th> 
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_ski">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Ski</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
+										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>		
+					</div>
+					<div ng-if="view_data_sum_swim.length>0 && req_sum==true && req_sumact=='swim'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Swim Days</th> 
+										<th style="text-align: center">Swims</th> 
+	
+										<th style="text-align: center">Distance</th>
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Speed</th>
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Distance</th>
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Calories</th> 
+										<th style="text-align: center">Avg Suffer Score</th> 
+	
+										<th style="text-align: center">Avg Daily Distance</th> 
+										<th style="text-align: center">Avg Daily Elapsed Time</th>
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_swim">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Swim</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>		
+					</div>
+					<div ng-if="view_data_sum_workout.length>0 && req_sum==true && req_sumact=='workout'" >
+						<div class="table-responsive">          
+					  		<table class="table table-hover">
+								<thead class="thead-default">
+									<tr>
+										<th style="text-align: center">#</th>
+										<th style="text-align: center">Name</th>
+										<th style="text-align: center">Type</th>
+										<th style="text-align: center">Description</th> 
+										<th style="text-align: center">Days</th> 
+										<th style="text-align: center">Workout Days</th> 
+										<th style="text-align: center">Workouts</th> 
+	
+										<th style="text-align: center">Elapsed Time</th>
+										<th style="text-align: center">Moving Time</th>
+										<th style="text-align: center">Calories</th> 
+										<th style="text-align: center">Suffer Score</th>
+	
+										<th style="text-align: center">Avg Heart Rate</th> 
+	
+										<th style="text-align: center">Avg Elapsed Time</th>
+										<th style="text-align: center">Avg Moving Time</th>
+										<th style="text-align: center">Avg Calories</th> 
+										<th style="text-align: center">Avg Suffer Score</th> 
+	
+										<th style="text-align: center">Avg Daily Elapsed Time</th>
+										<th style="text-align: center">Avg Daily Moving Time</th> 
+										<th style="text-align: center">Avg Daily Calories</th> 
+										<th style="text-align: center">Avg Daily Suffer Score</th> 
+									</tr>
+								</thead>
+								<tbody ng:repeat="r in view_data_sum_workout">
+									<tr>
+										<td>{{$index+1}}</td>
+										<td>{{r.athlete.name}}</td> 
+										<td>Workout</td>
+										<td>{{get_period_display(r.period)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
+										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+	
+										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
+	
+										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
+										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
+									</tr>
+								</tbody>
+							</table>
+						</div>		
+					</div>
+				</div>
+			</div>
+
+			<hr class="featurette-divider"/>
+	
+			<footer class="container">
+				<p class="float-right"><a href="mailto:hello@conceptintegral.com">hello@conceptintegral.com</a></p>
+				<p>&copy; 2018 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
+			</footer>
+			
+			<script>
+				var app = angular.module('app', []);
+    			app.controller('appCtrl', function($scope, $http, $location, $window) 
+    			{
+					$scope.resp_err = '';
+					$scope.resp_info = '';
+					$scope.req_d_url = ''
+					$scope.req_preview_url = ''
+					$scope.req_view_url = ''
+					$scope.preview_data = '';
+					$scope.view_data  = '';
+					$scope.view_data_sum_all = '';
+					$scope.view_data_sum_ski = '';
+					$scope.view_data_sum_swim = '';
+					$scope.view_data_sum_workout = '';
+					$scope.view_data_sum_run = '';
+					$scope.view_data_sum_ride = '';
+					$scope.view_data_sum_hike = '';
+					$scope.loading_preview = false;
+					$scope.loading_preview = false;
+					$scope.loading = false;
+					$scope.req_fmt = 'csvxl';
+					$scope.req_std = '';
+					$scope.req_sumtyp = 'recent';
+					$scope.req_sum = false;
+					$scope.req_sumact = 'combi';
+					$scope.req_act = 'ride';
+					$scope.req_actq = 'all';
+					$scope.req_sumq = 'all';
+					$scope.req_sumtrain = true;
+					$scope.req_summan = true;
+					$scope.req_sumflag = false;
+					
+				    $scope.upd_req = function()
+				    {
+				    	if (!$scope.loading)
+				    	{
+					    	$scope.resp_err = '';
+					    	$scope.resp_info = '';
+					    	$scope.preview_data = '';
+					    	$scope.view_data  = '';
+							$scope.view_data_sum_all = '';
+							$scope.view_data_sum_ski = '';
+							$scope.view_data_sum_swim = '';
+							$scope.view_data_sum_workout = '';
+							$scope.view_data_sum_run = '';
+							$scope.view_data_sum_ride = '';
+							$scope.view_data_sum_hike = '';
+					    	if (req_athlete.checkValidity())	
+					    	{
+					    		var sumtyp = ($scope.req_fmt== 'json' || $scope.req_fmt == 'jsonp' ? 'all' : 'none')
+								$scope.req_d_url = get_url($scope.req_fmt, '/d', $scope.req_std, sumtyp, "N", "Y", "Y", "Y");
+								$scope.req_preview_url = get_url($scope.req_fmt, '', $scope.req_std, sumtyp, "N", "Y", "Y", "Y");
+								$scope.req_view_url = get_url('json', '', $scope.req_std, $scope.req_sumtyp, $scope.req_sumq=='commute' ? "Y" : "N", $scope.req_sumtrain ? "Y" : "N", $scope.req_sumflag ? "Y" : "N", $scope.req_summan ? "Y" : "N");
+							}
+							else
+							{
+								$scope.req_d_url = '';
+								$scope.req_preview_url = '';
+								$scope.req_view_url = '';
+							}
+						}
+				    }
+				    get_url = function(fmt, d, std, sum, comm, train, flag, manual)
+				    {
+				    	var url = 'https://strava.conceptintegral.com:8443/strava/service/data/v1/' + (fmt == 'csvxl' ? 'csv' : fmt) + d + '/activities/' + $scope.req_athlete;
+				    	p = '?';
+				    	if  (fmt == 'json' || fmt == 'jsonp')
+				    	{
+				    		url = url + p + 'summary=' + sum + '&commuteOnly=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+				    		p = '&';
+				    	}
+				    	if (std.length > 0)
+				    	{
+				    		url = url + p + 'units=' + $scope.req_std 
+				    		p = '&';
+				    	}
+				    	if  (fmt == 'csvxl')
+				    	{
+				    		url = url + p + 'dates=excel';
+				    		p = '&';
+				    	}
+				    	return url;
+				    }
+				    $scope.preview = function()
+				    {
+				    	if (req_athlete.checkValidity())	
+				    	{
+							$scope.loading_preview = true;
+							$scope.loading = true;
+					    	$scope.resp_err = '';
+					    	$scope.resp_info = '';
+							$scope.preview_data = '';
+							$scope.view_data  = '';
+							$scope.view_data_sum_all = '';
+							$scope.view_data_sum_ski = '';
+							$scope.view_data_sum_swim = '';
+							$scope.view_data_sum_workout = '';
+							$scope.view_data_sum_run = '';
+							$scope.view_data_sum_ride = '';
+							$scope.view_data_sum_hike = '';
+			        		$http.get($scope.req_preview_url).
+								then(function(response)
+								{
+									if ($scope.req_fmt == 'jsonp')
+									{
+										$scope.preview_data = JSON.stringify(response.data, undefined, 2);
+						  			}
+						  			else 
+						  			{
+						  				$scope.preview_data = response.data;
+						  			}
+									$scope.loading_preview = false;
+									$scope.loading = false;
+						  		}, 
+						  		function(response) 
+						  		{
+									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+									$scope.loading_preview = false;
+									$scope.loading = false;
+								});
+						}
+				    }
+				    $scope.view_sum = function()
+				    {
+						$scope.req_sum = true;
+				    	$scope.view();
+				    }
+				    $scope.view_act = function()
+				    {
+						$scope.req_sum = false;
+				    	$scope.view();
+				    }
+				    $scope.view = function()
+				    {
+				    	if (req_athlete.checkValidity())	
+				    	{
+							$scope.loading_view = true;
+							$scope.loading = true;
+					    	$scope.resp_err = '';
+					    	$scope.resp_info = '';
+					    	$scope.preview_data = '';
+					    	$scope.view_data  = '';
+							$scope.view_data_sum_all = '';
+							$scope.view_data_sum_ski = '';
+							$scope.view_data_sum_swim = '';
+							$scope.view_data_sum_workout = '';
+							$scope.view_data_sum_run = '';
+							$scope.view_data_sum_ride = '';
+							$scope.view_data_sum_hike = '';
+			        		$http.get($scope.req_view_url).
+								then(function(response)
+								{
+					  				if (response.data.status == "OK")
+					  				{
+						  				$scope.view_data = response.data;
+										$scope.view_data_sum_all = response.data['summary-data'].all.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_ski = response.data['summary-data'].ski.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_swim = response.data['summary-data'].swim.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_workout = response.data['summary-data'].workout.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_run = response.data['summary-data'].run.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_ride = response.data['summary-data'].ride.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+										$scope.view_data_sum_hike = response.data['summary-data'].hike.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+						  			}
+						  			else if (response.data.status == "INVALID_ATHLETE")
+						  			{
+										$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
+						  			}
+						  			else
+						  			{
+										$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
+						  			}
+									$scope.loading_view = false;
+									$scope.loading = false;
+						  		}, 
+						  		function(response) 
+						  		{
+									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+									$scope.loading_view = false;
+									$scope.loading = false;
+								});
+						}
+				    }
+					$scope.get_desc_display = function(desc)
+					{
+						if (desc.length > 80)
+						{
+							return desc.substring(0,80) + "...";
+						}
+						else
+						{
+							return desc;
+						}
+					}
+					$scope.get_time_display = function(tm)
+					{
+						if (parseInt(tm) == 0)
+						{
+							str = "";
+						}
+						else
+						{
+							var str = tm.substring(5,7) + ':' + tm.substring(7,9);
+							if (parseInt(tm.substring(0,5)) > 0)
+							{
+								str = tm.substring(0,5) + ':' + str;
+								if (parseInt(str.substring(0,1)) == 0)
+								{
+									str = str.substring(1);
+									if (parseInt(str.substring(0,1)) == 0)
+									{
+										str = str.substring(1);
+										if (parseInt(str.substring(0,1)) == 0)
+										{
+											str = str.substring(1);
+											if (parseInt(str.substring(0,1)) == 0)
+											{
+												str = str.substring(1);
+											}
+										}
+									}
+								}
+							}
+						}
+						return str;
+					}
+					$scope.get_date_display = function(dt)
+					{
+						var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+						return dt.substring(6,8) + '-' + mlist[parseInt(dt.substring(4,6))-1] + '-' + dt.substring(0,4) + ' ' + dt.substring(8,10) + ':' + dt.substring(10,12) + ' ' + dt.substring(12);
+					}
+					$scope.get_number_display = function(num, dp)
+					{
+						if (num == null)
+						{
+							return "";
+						}
+						else
+						{	
+							return num.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						}
+					}
+					$scope.get_boolean_display = function(bln)
+					{
+						if (bln)
+						{
+							return "Yes";
+						}
+						else
+						{
+							return "No";
+						}
+					}
+					$scope.get_percent_display = function(num, dp)
+					{
+						if (num == null)
+						{
+							return "";
+						}
+						else
+						{	
+							num2 = num * 100;
+							return num2.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						}
+					}
+					$scope.get_period_display = function(period)
+					{
+						if (period == "ALL")
+						{
+							return "All";
+						}
+						else if (period.indexOf("DAYS") > -1)
+						{
+							return " Last " + period.substring(5,period.length-5) + " days";
+						}
+						else if (period.indexOf("LAST_") > -1)
+						{
+							if (period.indexOf("YEARS") > -1)
+							{
+								return "Last " + period.substring(5,6) + " years";
+							}
+							else
+							{
+								return "Last year";
+							}
+						}
+						else if (period.length == 8)
+						{
+							return period.substring(0,4) + " to date";
+						}
+						else if (period.length == 6)
+						{
+							var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+							return mlist[parseInt(period.substring(4,6))-1] + '-' + period.substring(0,4);
+						}
+						else 
+						{
+							return period;
+						}
+					}
+					$scope.upd_req();
+				});
+			</script>
+		</div>
+	</body>
+</html>
