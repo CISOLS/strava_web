@@ -59,7 +59,7 @@
 					<div class="card">
   						<div class="card-body">
 							<h5>Have you authorised access to your Strava data?</h5>
-							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=https://strava.conceptintegral.com:8443/strava/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
+							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=http://api.strava.conceptintegral.com/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
 							<div class="form-group" >
 								<input id="req_athlete" class="form-control form-control-danger" type="email" ng-model="req_athlete" ng-change="upd_req()" type="email" placeholder="Athlete Email" required/>
@@ -1311,7 +1311,7 @@
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 				    	if ($scope.req_std.length > 0)
 				    	{
-				    		url = url '&units=' + $scope.req_std 
+				    		url = url + '&units=' + $scope.req_std 
 				    	}
 				    	return url;
 				    }
@@ -1321,7 +1321,7 @@
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 				    	if ($scope.req_std.length > 0)
 				    	{
-				    		url = url '&units=' + $scope.req_std 
+				    		url = url + '&units=' + $scope.req_std 
 				    	}
 				    	return url;
 				    }
