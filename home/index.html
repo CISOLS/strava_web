@@ -59,7 +59,7 @@
 					<div class="card">
   						<div class="card-body">
 							<h5>Have you authorised access to your Strava data?</h5>
-							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=https://strava.conceptintegral.com:8443/strava/service/register/new"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
+							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=https://strava.conceptintegral.com:8443/strava/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
 							<div class="form-group" >
 								<input id="req_athlete" class="form-control form-control-danger" type="email" ng-model="req_athlete" ng-change="upd_req()" type="email" placeholder="Athlete Email" required/>
@@ -130,27 +130,27 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="all"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="all"> All</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="manual"> Manual</input>
+												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="manual"> Manual</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="commute"> Commute</input>
+												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="commute"> Commute</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="trainer"> On Trainer</input>
+												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="trainer"> On Trainer</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actq" name="req_actq" value="flagged"> Flagged</input>
+												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="flagged"> Flagged</input>
 											</label>
 										</div>				
 									</div>
@@ -166,7 +166,7 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="combi"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="all"> All</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
@@ -203,12 +203,12 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumq" name="req_sumq" value="all" ng-change="upd_req()"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_sumcom" name="req_sumcom" value="all" ng-change="upd_req()"> All</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumq" name="req_sumq" value="commute" ng-change="upd_req()"> Commute</input>
+												<input class="form-check-input" type="radio" ng-model="req_sumcom" name="req_sumcom" value="commute" ng-change="upd_req()"> Commute</input>
 											</label>
 										</div>				
 									</div>
@@ -263,22 +263,22 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="csv" ng-click="upd_req()"> CSV</input>
+												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="csv" ng-click="upd_req()"> CSV</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="csvxl" ng-click="upd_req()"> CSV (Excel)</input>
+												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="csvxl" ng-click="upd_req()"> CSV (Excel)</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="json" ng-click="upd_req()"> JSON</input>
+												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="none" ng-click="upd_req()"> JSON</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_fmt" name="req_fmt" value="jsonp" ng-click="upd_req()"> JSON (pretty)</input>
+												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="pretty" ng-click="upd_req()"> JSON (pretty)</input>
 											</label>
 										</div>				
 									</div>
@@ -311,7 +311,7 @@
 	 	 			<div ng-if="resp_info!=''" >
 		  				<div class="text-info">{{resp_info}}</div>
 	 	 			</div>
-	 	 			<div ng-if="view_data.data.run.length>0 && req_sum==false && req_act=='run'" >
+	 	 			<div ng-if="view_data_activities.run.length>0 && req_act=='run'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -350,8 +350,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.run">
-									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.run">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -390,7 +390,7 @@
 							</table>
 						</div>					
 					</div>
-					<div ng-if="view_data.data.ride.length>0 && req_sum==false && req_act=='ride'" >
+					<div ng-if="view_data_activities.ride.length>0 && req_act=='ride'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -434,8 +434,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.ride">
-									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.ride">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -478,7 +478,7 @@
 							</table>
 						</div>					
 					</div>
-					<div ng-if="view_data.data.hike.length>0 && req_sum==false && req_act=='hike'" >
+					<div ng-if="view_data_activities.hike.length>0 && req_act=='hike'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -517,8 +517,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.hike">
-									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.hike">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -556,7 +556,7 @@
 							</table>					
 						</div>
 					</div>
-					<div ng-if="view_data.data.ski.length>0 && req_sum==false && req_act=='ski'" >
+					<div ng-if="view_data_activities.ski.length>0 && req_act=='ski'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -592,8 +592,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.ski">
-									<tr ng-if="req_actq=='all' || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.ski">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -629,7 +629,7 @@
 							</table>
 						</div>
 					</div>		
-					<div ng-if="view_data.data.swim.length>0 && req_sum==false && req_act=='swim'" >
+					<div ng-if="view_data_activities.swim.length>0 && req_act=='swim'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -655,8 +655,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.swim">
-									<tr ng-if="req_actq=='all' || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.swim">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -681,7 +681,7 @@
 							</table>
 						</div>					
 					</div>
-					<div ng-if="view_data.data.workout.length>0 && req_sum==false && req_act=='workout'" >
+					<div ng-if="view_data_activities.workout.length>0 && req_act=='workout'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -706,8 +706,8 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data.data.workout">
-									<tr ng-if="req_actq=='all' || (req_actq=='trainer' && r['is-on-trainer']) || (req_actq=='commute' && r['is-commute']) || (req_actq=='flagged' && r['is-flagged']) || (req_actq=='manual' && r['is-manual'])" >
+								<tbody ng:repeat="r in view_data_activities.workout">
+									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -731,7 +731,7 @@
 							</table>
 						</div>					
 					</div>
-	 	 			<div ng-if="view_data_sum_all.length>0 && req_sum==true && req_sumact=='combi'" >
+	 	 			<div ng-if="view_data_analytics.all.length>0 && req_sumact=='all'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -768,7 +768,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_all">
+								<tbody ng:repeat="r in view_data_analytics.all">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -804,7 +804,7 @@
 							</table>
 						</div>					
 					</div>
-	 	 			<div ng-if="view_data_sum_run.length>0 && req_sum==true && req_sumact=='run'" >
+	 	 			<div ng-if="view_data_analytics.run.length>0 && req_sumact=='run'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -842,7 +842,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_run">
+								<tbody ng:repeat="r in view_data_analytics.run">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -879,7 +879,7 @@
 							</table>
 						</div>					
 					</div>
-					<div ng-if="view_data_sum_ride.length>0 && req_sum==true && req_sumact=='ride'" >
+					<div ng-if="view_data_analytics.ride.length>0 && req_sumact=='ride'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -921,7 +921,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_ride">
+								<tbody ng:repeat="r in view_data_analytics.ride">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -962,7 +962,7 @@
 							</table>
 						</div>
 					</div>
-					<div ng-if="view_data_sum_hike.length>0 && req_sum==true && req_sumact=='hike'" >
+					<div ng-if="view_data_analytics.hike.length>0 && req_sumact=='hike'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1000,7 +1000,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_hike">
+								<tbody ng:repeat="r in view_data_analytics.hike">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1037,7 +1037,7 @@
 							</table>					
 						</div>
 					</div>
-					<div ng-if="view_data_sum_ski.length>0 && req_sum==true && req_sumact=='ski'" >
+					<div ng-if="view_data_analytics.ski.length>0 && req_sumact=='ski'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1075,7 +1075,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_ski">
+								<tbody ng:repeat="r in view_data_analytics.ski">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1112,7 +1112,7 @@
 							</table>
 						</div>		
 					</div>
-					<div ng-if="view_data_sum_swim.length>0 && req_sum==true && req_sumact=='swim'" >
+					<div ng-if="view_data_analytics.swim.length>0 && req_sumact=='swim'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1147,7 +1147,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_swim">
+								<tbody ng:repeat="r in view_data_analytics.swim">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1181,7 +1181,7 @@
 							</table>
 						</div>		
 					</div>
-					<div ng-if="view_data_sum_workout.length>0 && req_sum==true && req_sumact=='workout'" >
+					<div ng-if="view_data_analytics.workout.length>0 && req_sumact=='workout'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1212,7 +1212,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_sum_workout">
+								<tbody ng:repeat="r in view_data_analytics.workout">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1260,27 +1260,21 @@
 					$scope.resp_info = '';
 					$scope.req_d_url = ''
 					$scope.req_preview_url = ''
-					$scope.req_view_url = ''
+					$scope.req_view_analytics_url = ''
+					$scope.req_view_activities_url = ''
 					$scope.preview_data = '';
-					$scope.view_data  = '';
-					$scope.view_data_sum_all = '';
-					$scope.view_data_sum_ski = '';
-					$scope.view_data_sum_swim = '';
-					$scope.view_data_sum_workout = '';
-					$scope.view_data_sum_run = '';
-					$scope.view_data_sum_ride = '';
-					$scope.view_data_sum_hike = '';
+					$scope.view_data_activities = '';
+					$scope.view_data_analytics = '';
 					$scope.loading_preview = false;
 					$scope.loading_preview = false;
 					$scope.loading = false;
-					$scope.req_fmt = 'csvxl';
+					$scope.req_preview_style = 'csvxl';
 					$scope.req_std = '';
 					$scope.req_sumtyp = 'recent';
-					$scope.req_sum = false;
-					$scope.req_sumact = 'combi';
+					$scope.req_sumact = 'all';
 					$scope.req_act = 'ride';
-					$scope.req_actq = 'all';
-					$scope.req_sumq = 'all';
+					$scope.req_actcom = 'all';
+					$scope.req_sumcom = 'all';
 					$scope.req_sumtrain = true;
 					$scope.req_summan = true;
 					$scope.req_sumflag = false;
@@ -1292,47 +1286,52 @@
 					    	$scope.resp_err = '';
 					    	$scope.resp_info = '';
 					    	$scope.preview_data = '';
-					    	$scope.view_data  = '';
-							$scope.view_data_sum_all = '';
-							$scope.view_data_sum_ski = '';
-							$scope.view_data_sum_swim = '';
-							$scope.view_data_sum_workout = '';
-							$scope.view_data_sum_run = '';
-							$scope.view_data_sum_ride = '';
-							$scope.view_data_sum_hike = '';
+					    	$scope.view_data_activities  = '';
+							$scope.view_data_analytics = '';
 					    	if (req_athlete.checkValidity())	
 					    	{
-					    		var sumtyp = ($scope.req_fmt== 'json' || $scope.req_fmt == 'jsonp' ? 'all' : 'none')
-								$scope.req_d_url = get_url($scope.req_fmt, '/d', $scope.req_std, sumtyp, "N", "Y", "Y", "Y");
-								$scope.req_preview_url = get_url($scope.req_fmt, '', $scope.req_std, sumtyp, "N", "Y", "Y", "Y");
-								$scope.req_view_url = get_url('json', '', $scope.req_std, $scope.req_sumtyp, $scope.req_sumq=='commute' ? "Y" : "N", $scope.req_sumtrain ? "Y" : "N", $scope.req_sumflag ? "Y" : "N", $scope.req_summan ? "Y" : "N");
+					    		//var sumtyp = ($scope.req_preview_style== 'json' || $scope.req_preview_style == 'jsonp' ? 'all' : 'none')
+								//$scope.req_d_url = get_url($scope.req_preview_style, '/d', $scope.req_std, sumtyp, 'N', 'Y', 'Y', 'Y');
+								$scope.req_preview_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
+								$scope.req_view_analytics_url = get_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
+								$scope.req_view_activities_url = get_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
 							}
 							else
 							{
 								$scope.req_d_url = '';
 								$scope.req_preview_url = '';
-								$scope.req_view_url = '';
+								$scope.req_view_analytics_url = '';
+								$scope.req_view_activities_url = '';
 							}
 						}
 				    }
-				    get_url = function(fmt, d, std, sum, comm, train, flag, manual)
+				    get_preview_url = function(style, comm, train, flag, manual)
 				    {
-				    	var url = 'http://api.strava.conceptintegral.com:8443/strava/service/data/v1/' + (fmt == 'csvxl' ? 'csv' : fmt) + d + '/activities/' + $scope.req_athlete;
-				    	p = '?';
-				    	if  (fmt == 'json' || fmt == 'jsonp')
+				    	var url = 'http://api.strava.conceptintegral.com/service/activity/' + $scope.req_athlete + '?style=' + style
+						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+				    	if ($scope.req_std.length > 0)
 				    	{
-				    		url = url + p + 'summary=' + sum + '&commuteOnly=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-				    		p = '&';
+				    		url = url '&units=' + $scope.req_std 
 				    	}
-				    	if (std.length > 0)
+				    	return url;
+				    }
+				    get_veiw_activities_url = function(comm, train, flag, manual)
+				    {
+				    	var url = 'http://api.strava.conceptintegral.com/service/activity/' + $scope.req_athlete + '?style=none'
+						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+				    	if ($scope.req_std.length > 0)
 				    	{
-				    		url = url + p + 'units=' + $scope.req_std 
-				    		p = '&';
+				    		url = url '&units=' + $scope.req_std 
 				    	}
-				    	if  (fmt == 'csvxl')
+				    	return url;
+				    }
+				    get_veiw_analytics_url = function(comm, train, flag, manual)
+				    {
+				    	var url = 'http://api.strava.conceptintegral.com/service/analytics/' + $scope.req_athlete + '?style=none'
+						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+				    	if ($scope.req_std.length > 0)
 				    	{
-				    		url = url + p + 'dates=excel';
-				    		p = '&';
+				    		url = url '&units=' + $scope.req_std 
 				    	}
 				    	return url;
 				    }
@@ -1345,18 +1344,12 @@
 					    	$scope.resp_err = '';
 					    	$scope.resp_info = '';
 							$scope.preview_data = '';
-							$scope.view_data  = '';
-							$scope.view_data_sum_all = '';
-							$scope.view_data_sum_ski = '';
-							$scope.view_data_sum_swim = '';
-							$scope.view_data_sum_workout = '';
-							$scope.view_data_sum_run = '';
-							$scope.view_data_sum_ride = '';
-							$scope.view_data_sum_hike = '';
+							$scope.view_data_activities  = '';
+							$scope.view_data_analytics = '';
 			        		$http.get($scope.req_preview_url).
 								then(function(response)
 								{
-									if ($scope.req_fmt == 'jsonp')
+									if ($scope.req_preview_style == 'pretty')
 									{
 										$scope.preview_data = JSON.stringify(response.data, undefined, 2);
 						  			}
@@ -1377,15 +1370,34 @@
 				    }
 				    $scope.view_sum = function()
 				    {
-						$scope.req_sum = true;
-				    	$scope.view();
+				    	if (req_athlete.checkValidity())	
+				    	{
+							$scope.loading_view = true;
+							$scope.loading = true;
+					    	$scope.resp_err = '';
+					    	$scope.resp_info = '';
+					    	$scope.preview_data = '';
+							$scope.view_data_analytics = '';
+					    	$scope.view_data_activities  = '';
+			        		$http.get($scope.req_view_analytics_url).
+								then(function(response)
+								{
+					  				if (response.data.status == "OK")
+					  				{
+										$scope.view_data_analytics = response.data['summary-data'].all.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
+									}
+									$scope.loading_view = false;
+									$scope.loading = false;
+						  		}, 
+						  		function(response) 
+						  		{
+									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+									$scope.loading_view = false;
+									$scope.loading = false;
+								});
+						}
 				    }
 				    $scope.view_act = function()
-				    {
-						$scope.req_sum = false;
-				    	$scope.view();
-				    }
-				    $scope.view = function()
 				    {
 				    	if (req_athlete.checkValidity())	
 				    	{
@@ -1394,36 +1406,23 @@
 					    	$scope.resp_err = '';
 					    	$scope.resp_info = '';
 					    	$scope.preview_data = '';
-					    	$scope.view_data  = '';
-							$scope.view_data_sum_all = '';
-							$scope.view_data_sum_ski = '';
-							$scope.view_data_sum_swim = '';
-							$scope.view_data_sum_workout = '';
-							$scope.view_data_sum_run = '';
-							$scope.view_data_sum_ride = '';
-							$scope.view_data_sum_hike = '';
-			        		$http.get($scope.req_view_url).
+							$scope.view_data_analytics = '';
+					    	$scope.view_data_activities  = '';
+			        		$http.get($scope.req_view_activities_url).
 								then(function(response)
 								{
 					  				if (response.data.status == "OK")
 					  				{
-						  				$scope.view_data = response.data;
-										$scope.view_data_sum_all = response.data['summary-data'].all.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_ski = response.data['summary-data'].ski.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_swim = response.data['summary-data'].swim.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_workout = response.data['summary-data'].workout.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_run = response.data['summary-data'].run.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_ride = response.data['summary-data'].ride.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-										$scope.view_data_sum_hike = response.data['summary-data'].hike.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-						  			}
-						  			else if (response.data.status == "INVALID_ATHLETE")
-						  			{
-										$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
-						  			}
-						  			else
-						  			{
-										$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
-						  			}
+						  				$scope.view_data_activities = response.data;
+									}
+						  		//	else if (response.data.status == "INVALID_ATHLETE")
+						  		//	{
+								//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
+						  		//	}
+						  		//	else
+						  		//	{
+								//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
+						  		//	}
 									$scope.loading_view = false;
 									$scope.loading = false;
 						  		}, 
