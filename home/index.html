@@ -59,7 +59,7 @@
 					<div class="card">
   						<div class="card-body">
 							<h5>Have you authorised access to your Strava data?</h5>
-							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=http://api.strava.conceptintegral.com/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
+							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=http://api.strava.conceptintegral.com:8443/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
 							<div class="form-group" >
 								<input id="req_athlete" class="form-control form-control-danger" ng-model="req_athlete" ng-change="upd_req()" placeholder="Athlete" required/>
@@ -1249,7 +1249,7 @@
 	
 			<footer class="container">
 				<p class="float-right"><a href="mailto:hello@conceptintegral.com">hello@conceptintegral.com</a></p>
-				<p>&copy; 2018 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
+				<p>&copy; 2021 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
 			</footer>
 			
 			<script>
@@ -1310,7 +1310,7 @@
 				    }
 				    get_preview_url = function(style, comm, train, flag, manual)
 				    {
-				    	var url = 'http://api.strava.conceptintegral.com/service/activity/' + $scope.req_athlete + '?style=' + style
+				    	var url = 'http://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=' + style
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 				    	if ($scope.req_std.length > 0)
 				    	{
@@ -1320,7 +1320,7 @@
 				    }
 				    get_view_activities_url = function(comm, train, flag, manual)
 				    {
-				    	var url = 'http://api.strava.conceptintegral.com/service/activity/' + $scope.req_athlete + '?style=none'
+				    	var url = 'http://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=none'
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 				    	if ($scope.req_std.length > 0)
 				    	{
@@ -1330,7 +1330,7 @@
 				    }
 				    get_view_analytics_url = function(comm, train, flag, manual)
 				    {
-				    	var url = 'http://api.strava.conceptintegral.com/service/analytics/' + $scope.req_athlete + '?style=none'
+				    	var url = 'http://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?style=none'
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 				    	if ($scope.req_std.length > 0)
 				    	{
