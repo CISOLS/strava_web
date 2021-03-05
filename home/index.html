@@ -62,7 +62,7 @@
 							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=http://api.strava.conceptintegral.com/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
 							<div class="form-group" >
-								<input id="req_athlete" class="form-control form-control-danger" type="email" ng-model="req_athlete" ng-change="upd_req()" type="email" placeholder="Athlete Email" required/>
+								<input id="req_athlete" class="form-control form-control-danger" ng-model="req_athlete" ng-change="upd_req()" placeholder="Athlete" required/>
 							</div>
 							<div class="form-check">
 								<div class="form-check form-check-inline">
@@ -1394,6 +1394,7 @@
 						  		}, 
 						  		function(response) 
 						  		{
+									console.log(response)
 									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
 									$scope.loading_view = false;
 									$scope.loading = false;
@@ -1431,6 +1432,7 @@
 						  		}, 
 						  		function(response) 
 						  		{
+									console.log(response)
 									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
 									$scope.loading_view = false;
 									$scope.loading = false;
