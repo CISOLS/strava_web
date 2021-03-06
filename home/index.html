@@ -1415,10 +1415,13 @@
 			        		$http.get($scope.req_view_activities_url).
 								then(function(response)
 								{
-					  				if (response.data.status == "OK")
-					  				{
-						  				$scope.view_data_activities = response.data;
-									}
+									$scope.view_data_activities = response.data;
+									console.log('run=' + response.data.run.length);
+									console.log('ride=' + response.data.bike.length);
+									console.log('hike=' + response.data.hike.length);
+									console.log('swim=' + response.data.swim.length);
+									console.log('workout=' + response.data.workout.length);
+									console.log('ski=' + response.data.ski.length);
 						  		//	else if (response.data.status == "INVALID_ATHLETE")
 						  		//	{
 								//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
