@@ -1495,11 +1495,6 @@
 						}
 						return str;
 					}
-					$scope.get_date_time_display = function(dt)
-					{
-						var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-						return dt.substring(6,8) + '-' + mlist[parseInt(dt.substring(4,6))-1] + '-' + dt.substring(0,4) + ' ' + dt.substring(8,10) + ':' + dt.substring(10,12) + ' ' + dt.substring(12);
-					}
 					$scope.get_number_display = function(num, dp)
 					{
 						if (num == null)
