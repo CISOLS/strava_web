@@ -37,8 +37,6 @@
 		<script src="js/popper.min.js" crossorigin="anonymous"></script>
 		<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
 		<script src="js/jquery.min.js"></script>
-		<script src="js/moment.js"></script>
-		<script src="js/moment-timezone.js"></script>
 
 		<div class="container" ng-app="app">
 			<div ng-controller="appCtrl">
@@ -359,19 +357,19 @@
 										<td>{{r.athlete.name}}</td> 
 										<td>Run</td>
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
 										<td>{{r["start-town"]}}</td> 
 										<td>{{r["start-city"]}}</td>
 										<td>{{r["start-country"]}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
 										<td>{{r["finish-town"]}}</td> 
 										<td>{{r["finish-city"]}}</td>
 										<td>{{r["finish-country"]}}</td>
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
-										<td ng-if="r['max-pace']" style="text-align: right">{{get_time_display(r["max-pace"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
+										<td ng-if="r['max-pace']" style="text-align: right">{{get_duration_display(r["max-pace"])}}</td>
 										<td ng-if="!r['max-pace']" style="text-align: right"></td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
@@ -443,17 +441,17 @@
 										<td>{{r.athlete.name}}</td> 
 										<td>Ride</td>
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
 										<td>{{r["start-town"]}}</td> 
 										<td>{{r["start-city"]}}</td>
 										<td>{{r["start-country"]}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
 										<td>{{r["finish-town"]}}</td> 
 										<td>{{r["finish-city"]}}</td>
 										<td>{{r["finish-country"]}}</td>
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
@@ -526,19 +524,19 @@
 										<td>{{r.athlete.name}}</td> 
 										<td>Walk</td>
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
 										<td>{{r["start-town"]}}</td> 
 										<td>{{r["start-city"]}}</td>
 										<td>{{r["start-country"]}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
 										<td>{{r["finish-town"]}}</td> 
 										<td>{{r["finish-city"]}}</td>
 										<td>{{r["finish-country"]}}</td>
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["max-pace"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["max-pace"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
@@ -601,17 +599,17 @@
 										<td>{{r.athlete.name}}</td> 
 										<td>Ski</td>
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
 										<td>{{r["start-town"]}}</td> 
 										<td>{{r["start-city"]}}</td>
 										<td>{{r["start-country"]}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
 										<td>{{r["finish-town"]}}</td> 
 										<td>{{r["finish-city"]}}</td>
 										<td>{{r["finish-country"]}}</td>
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
@@ -664,11 +662,11 @@
 										<td>{{r.athlete.name}}</td> 
 										<td>Swim</td>
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
@@ -716,10 +714,10 @@
 										<td>Workout</td>
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_desc_display(r.description)}}</td> 
-										<td>{{get_date_display(r["start-time"])}}</td>
-										<td>{{get_date_display(r["finish-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td>{{get_date_time_display(r["start-time"])}}</td>
+										<td>{{get_date_time_display(r["finish-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["max-heart-rate"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
@@ -780,8 +778,8 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
 										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
@@ -790,15 +788,15 @@
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -854,26 +852,26 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
 										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 	
-										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -933,8 +931,8 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
 										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
@@ -946,8 +944,8 @@
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
@@ -955,8 +953,8 @@
 										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts-per-activity"],0)}}</td>
 										
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -1012,26 +1010,26 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
 										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 	
-										<td style="text-align: right">{{get_time_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -1087,8 +1085,8 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
 										<td style="text-align: right">{{get_percent_display(r["avg-gradient"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
@@ -1098,15 +1096,15 @@
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["elevation-gain-per-activity"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -1159,8 +1157,8 @@
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.distance,2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 	
@@ -1168,14 +1166,14 @@
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-day"],2)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -1223,20 +1221,20 @@
 										<td style="text-align: right">{{get_number_display(r["days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["activity-days"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.count,0)}}</td> 
-										<td style="text-align: right">{{get_time_display(r["elapsed-time"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 	
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-activity"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-activity"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-activity"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-activity"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-activity"],0)}}</td> 
 	
-										<td style="text-align: right">{{get_time_display(r["elapsed-time-per-day"])}}</td>
-										<td style="text-align: right">{{get_time_display(r["moving-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["elapsed-time-per-day"])}}</td>
+										<td style="text-align: right">{{get_duration_display(r["moving-time-per-day"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["calories-per-day"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score-per-day"],0)}}</td> 
 									</tr>
@@ -1458,16 +1456,49 @@
 					$scope.get_tz_date = function(dt)
 					{
 						var home = new moment(dt)
-						var local = home.tz($scope.req_tz);
+						var local = home.tz(moment.tz.guess());
 						return local
 					}	
-					$scope.get_date_display = function(dt)
+					$scope.get_date_time_display = function(dt)
 					{
-						return $scope.get_tz_date(dt).format("ddd Do MMMM YYYY")
+						return $scope.get_tz_date(dt).format("ddd D-MMM-YYYY HH:mm")
 					}
-					$scope.get_time_display = function(dt)
+					$scope.get_duration_display = function(tm)
 					{
-						return $scope.get_tz_date(dt).format("HH:mm")
+						if (parseInt(tm) == 0)
+						{
+							str = "";
+						}
+						else
+						{
+							var str = tm.substring(5,7) + ':' + tm.substring(7,9);
+							if (parseInt(tm.substring(0,5)) > 0)
+							{
+								str = tm.substring(0,5) + ':' + str;
+								if (parseInt(str.substring(0,1)) == 0)
+								{
+									str = str.substring(1);
+									if (parseInt(str.substring(0,1)) == 0)
+									{
+										str = str.substring(1);
+										if (parseInt(str.substring(0,1)) == 0)
+										{
+											str = str.substring(1);
+											if (parseInt(str.substring(0,1)) == 0)
+											{
+												str = str.substring(1);
+											}
+										}
+									}
+								}
+							}
+						}
+						return str;
+					}
+					$scope.get_date_time_display = function(dt)
+					{
+						var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+						return dt.substring(6,8) + '-' + mlist[parseInt(dt.substring(4,6))-1] + '-' + dt.substring(0,4) + ' ' + dt.substring(8,10) + ':' + dt.substring(10,12) + ' ' + dt.substring(12);
 					}
 					$scope.get_number_display = function(num, dp)
 					{
