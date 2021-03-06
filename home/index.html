@@ -37,6 +37,8 @@
 		<script src="js/popper.min.js" crossorigin="anonymous"></script>
 		<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
 		<script src="js/jquery.min.js"></script>
+		<script src="js/moment.js"></script>
+		<script src="js/moment-timezone.js"></script>
 
 		<div class="container" ng-app="app">
 			<div ng-controller="appCtrl">
@@ -1453,42 +1455,19 @@
 							return desc;
 						}
 					}
-					$scope.get_time_display = function(tm)
+					$scope.get_tz_date = function(dt)
 					{
-						if (parseInt(tm) == 0)
-						{
-							str = "";
-						}
-						else
-						{
-							var str = tm.substring(5,7) + ':' + tm.substring(7,9);
-							if (parseInt(tm.substring(0,5)) > 0)
-							{
-								str = tm.substring(0,5) + ':' + str;
-								if (parseInt(str.substring(0,1)) == 0)
-								{
-									str = str.substring(1);
-									if (parseInt(str.substring(0,1)) == 0)
-									{
-										str = str.substring(1);
-										if (parseInt(str.substring(0,1)) == 0)
-										{
-											str = str.substring(1);
-											if (parseInt(str.substring(0,1)) == 0)
-											{
-												str = str.substring(1);
-											}
-										}
-									}
-								}
-							}
-						}
-						return str;
-					}
+						var home = new moment(dt)
+						var local = home.tz($scope.req_tz);
+						return local
+					}	
 					$scope.get_date_display = function(dt)
 					{
-						var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-						return dt.substring(6,8) + '-' + mlist[parseInt(dt.substring(4,6))-1] + '-' + dt.substring(0,4) + ' ' + dt.substring(8,10) + ':' + dt.substring(10,12) + ' ' + dt.substring(12);
+						return $scope.get_tz_date(dt).format("ddd Do MMMM YYYY")
+					}
+					$scope.get_time_display = function(dt)
+					{
+						return $scope.get_tz_date(dt).format("HH:mm")
 					}
 					$scope.get_number_display = function(num, dp)
 					{
