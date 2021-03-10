@@ -1288,7 +1288,7 @@
 				    get_preview_url = function()
 				    {
 				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty'
-						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y';
+						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y&data=1';
 						url = url + '&units=' + $scope.req_std 
 				    	return url;
 				    }
@@ -1432,7 +1432,7 @@
 					}	
 					$scope.get_date_time_display = function(dt)
 					{
-						return new moment(dt).format("ddd D-MMM-YYYY HH:mm Z")
+						return new moment.parseZone(dt).format("ddd D-MMM-YYYY HH:mm Z")
 					}
 					$scope.get_duration_display = function(tm)
 					{
