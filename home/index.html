@@ -1243,7 +1243,6 @@
 					$scope.loading_preview = false;
 					$scope.loading_preview = false;
 					$scope.loading = false;
-					$scope.req_preview_style = 'csvxl';
 					$scope.req_std = 'metric';
 					$scope.req_sumtyp = 'recent';
 					$scope.req_sumact = 'all';
@@ -1265,10 +1264,7 @@
 							$scope.view_data_analytics = '';
 					    	//if (req_athlete.checkValidity())	
 					    	//{
-					    		//var sumtyp = ($scope.req_preview_style== 'json' || $scope.req_preview_style == 'jsonp' ? 'all' : 'none')
-								//$scope.req_csv_url = get_url($scope.req_preview_style, '/d', $scope.req_std, sumtyp, 'N', 'Y', 'Y', 'Y');
-								
-								$scope.req_csv_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
+								$scope.req_csv_url = get_csv_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
 								console.log($scope.req_preview_url)
 
 								$scope.req_preview_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
@@ -1337,14 +1333,7 @@
 			        		$http.get($scope.req_preview_url).
 								then(function(response)
 								{
-									if ($scope.req_preview_style == 'pretty')
-									{
-										$scope.preview_data = JSON.stringify(response.data, undefined, 2);
-						  			}
-						  			else 
-						  			{
-						  				$scope.preview_data = response.data;
-						  			}
+									$scope.preview_data = JSON.stringify(response.data, undefined, 2);
 									$scope.loading_preview = false;
 									$scope.loading = false;
 						  		}, 
@@ -1401,7 +1390,7 @@
 								then(function(response)
 								{
 									$scope.view_data_activities = response.data;
-									console.log('run=' + response.data.run.length);
+//									console.log('run=' + response.data.run.length);
 //									console.log('ride=' + response.data.bike.length);
 //									console.log('hike=' + response.data.hike.length);
 //									console.log('swim=' + response.data.swim.length);
