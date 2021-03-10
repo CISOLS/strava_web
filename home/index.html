@@ -69,11 +69,6 @@
 							<div class="form-check">
 								<div class="form-check form-check-inline">
 									<label class="form-check-label">
-										<input class="form-check-input" type="radio" ng-model="req_std" name="req_std" value="" ng-click="upd_req()"> Athlete's unit preference</input>
-									</label>
-								</div>				
-								<div class="form-check form-check-inline">
-									<label class="form-check-label">
 										<input class="form-check-input" type="radio" ng-model="req_std" name="req_std" value="metric" ng-click="upd_req()"> Metric</input>
 									</label>
 								</div>				
@@ -261,34 +256,12 @@
 					  	</div>
 						<div class="col-md-4">
 							<div class="card">
-		  						<div class="card-body">
-									<div class="form-check">
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="csv" ng-click="upd_req()"> CSV</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="csvxl" ng-click="upd_req()"> CSV (Excel)</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="none" ng-click="upd_req()"> JSON</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_preview_style" name="req_preview_style" value="pretty" ng-click="upd_req()"> JSON (pretty)</input>
-											</label>
-										</div>				
+								<div class="card-body">
+									<div class="form-group">
+										<b>CSV download: </b><a href="{{req_csv_url}}" target="_blank">{{req_csv_url}}</a>
 									</div>
 									<div class="form-group">
-										<a href="{{req_d_url}}">{{req_d_url}}</a>
-									</div>
-									<div class="form-group">
-										<button type="button" class="btn btn-primary" ng-click="preview()">Preview</button>
+										<button type="button" class="btn btn-primary" ng-click="preview()">Preview Data (JSON)</button>
 									</div>
 								</div>
 							</div>
@@ -1260,7 +1233,7 @@
     			{
 					$scope.resp_err = '';
 					$scope.resp_info = '';
-					$scope.req_d_url = ''
+					$scope.req_csv_url = ''
 					$scope.req_preview_url = ''
 					$scope.req_view_analytics_url = ''
 					$scope.req_view_activities_url = ''
@@ -1271,7 +1244,7 @@
 					$scope.loading_preview = false;
 					$scope.loading = false;
 					$scope.req_preview_style = 'csvxl';
-					$scope.req_std = '';
+					$scope.req_std = 'metric';
 					$scope.req_sumtyp = 'recent';
 					$scope.req_sumact = 'all';
 					$scope.req_act = 'ride';
@@ -1293,31 +1266,41 @@
 					    	//if (req_athlete.checkValidity())	
 					    	//{
 					    		//var sumtyp = ($scope.req_preview_style== 'json' || $scope.req_preview_style == 'jsonp' ? 'all' : 'none')
-								//$scope.req_d_url = get_url($scope.req_preview_style, '/d', $scope.req_std, sumtyp, 'N', 'Y', 'Y', 'Y');
+								//$scope.req_csv_url = get_url($scope.req_preview_style, '/d', $scope.req_std, sumtyp, 'N', 'Y', 'Y', 'Y');
+								
+								$scope.req_csv_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
+								console.log($scope.req_preview_url)
+
 								$scope.req_preview_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
 								console.log($scope.req_preview_url)
+								
 								$scope.req_view_analytics_url = get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
 								console.log($scope.req_view_analytics_url)
+								
 								$scope.req_view_activities_url = get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
-								console.log($scope.req_view_activities_url)
+								console.log($scope.req_view_activities_url);
 							//}
 							//else
 							//{
-							//	$scope.req_d_url = '';
+							//	$scope.req_csv_url = '';
 							//	$scope.req_preview_url = '';
 							//	$scope.req_view_analytics_url = '';
 							//	$scope.req_view_activities_url = '';
 							//}
 						}
 				    }
-				    get_preview_url = function(style, comm, train, flag, manual)
+				    get_preview_url = function()
 				    {
-				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=' + style
-						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-				    	if ($scope.req_std.length > 0)
-				    	{
-				    		url = url + '&units=' + $scope.req_std 
-				    	}
+				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty'
+						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y';
+						url = url + '&units=' + $scope.req_std 
+				    	return url;
+				    }
+				    get_csv_url = function()
+				    {
+				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activitycsv/' + $scope.req_athlete + '?style=none'
+						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y';
+						url = url + '&units=' + $scope.req_std 
 				    	return url;
 				    }
 				    get_view_activities_url = function(comm, train, flag, manual)
@@ -1467,35 +1450,7 @@
 					}
 					$scope.get_duration_display = function(tm)
 					{
-						if (parseInt(tm) == 0)
-						{
-							str = "";
-						}
-						else
-						{
-							var str = tm.substring(5,7) + ':' + tm.substring(7,9);
-							if (parseInt(tm.substring(0,5)) > 0)
-							{
-								str = tm.substring(0,5) + ':' + str;
-								if (parseInt(str.substring(0,1)) == 0)
-								{
-									str = str.substring(1);
-									if (parseInt(str.substring(0,1)) == 0)
-									{
-										str = str.substring(1);
-										if (parseInt(str.substring(0,1)) == 0)
-										{
-											str = str.substring(1);
-											if (parseInt(str.substring(0,1)) == 0)
-											{
-												str = str.substring(1);
-											}
-										}
-									}
-								}
-							}
-						}
-						return str;
+						return tm;
 					}
 					$scope.get_number_display = function(num, dp)
 					{
