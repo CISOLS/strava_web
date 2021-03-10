@@ -1359,10 +1359,7 @@
 			        		$http.get($scope.req_view_analytics_url).
 								then(function(response)
 								{
-					  				if (response.data.status == "OK")
-					  				{
-										$scope.view_data_analytics = response.data['summary-data'].all.sort(function(act1, act2) {return act2["end-date"].localeCompare(act1["end-date"]) == 0 ? act2["start-date"].localeCompare(act1["start-date"]) : act2["end-date"].localeCompare(act1["end-date"])});
-									}
+									$scope.view_data_activities = response.data;
 									$scope.loading_view = false;
 									$scope.loading = false;
 						  		}, 
