@@ -129,27 +129,34 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="all"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_act2" name="req_act2" value="all" ng-change="upd_req()"> All</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_act2" name="req_act2" value="com" ng-change="upd_req()"> Commute Only</input>
+											</label>
+										</div>
+									</div>
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_act_com" name="req_act_com" ng-change="upd_req()"> Commute</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="manual"> Manual</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_act_man" name="req_act_man" ng-change="upd_req()"> Manual</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="commute"> Commute</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_act_train" name="req_act_train" ng-change="upd_req()"> On Trainer</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="trainer"> On Trainer</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_actcom" name="req_actcom" value="flagged"> Flagged</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_act_flag" name="req_act_flag" ng-change="upd_req()"> Flagged</input>
 											</label>
 										</div>				
 									</div>
@@ -168,83 +175,88 @@
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="all"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="all"> All</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="ride"> Ride</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="ride"> Ride</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="run"> Run</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="run"> Run</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="hike"> Walk</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="hike"> Walk</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="ski"> Ski</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="ski"> Ski</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="swim"> Swim</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="swim"> Swim</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumact" name="req_sumact" value="workout"> Workout</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum" name="req_sum" value="workout"> Workout</input>
 											</label>
 										</div>
 									</div>				
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumcom" name="req_sumcom" value="all" ng-change="upd_req()"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum2" name="req_sum2" value="all" ng-change="upd_req()"> All</input>
+											</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" ng-model="req_sum2" name="req_sum2" value="com" ng-change="upd_req()"> Commute Only</input>
+											</label>
+										</div>
+									</div>
+									<div class="form-check">
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_sum_com" name="req_sum_com" ng-change="upd_req()"> Commute</input>
 											</label>
 										</div>				
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumcom" name="req_sumcom" value="commute" ng-change="upd_req()"> Commute</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_sum_man" name="req_sum_man" ng-change="upd_req()"> Manual</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_sum_train" name="req_sum_train" ng-change="upd_req()"> On Trainer</input>
+											</label>
+										</div>				
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input class="form-check-input" type="checkbox" ng-model="req_sum_flag" name="req_sum_flag" ng-change="upd_req()"> Flagged</input>
 											</label>
 										</div>				
 									</div>
 									<div class="form-check">
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" ng-model="req_summan" name="req_summan" ng-change="upd_req()"> Manual</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" ng-model="req_sumtrain" name="req_sumtrain" ng-change="upd_req()"> On Trainer</input>
-											</label>
-										</div>				
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" ng-model="req_sumflag" name="req_sumflag" ng-change="upd_req()"> Flagged</input>
-											</label>
-										</div>				
-									</div>
-									<div class="form-check">
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="all" ng-click="upd_req()"> All</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum_type" name="req_sum_type" value="all" ng-click="upd_req()"> All</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent" ng-click="upd_req()"> Recent Only</input>
+												<input class="form-check-input" type="radio" ng-model="req_sum_type" name="req_sum_type" value="recent" ng-click="upd_req()"> Recent Only</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="checkbox" ng-model="req_summnth" name="req_summnth" ng-click="upd_req()"> Include Monthly</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_sum_typemnth" name="req_sum_typemnth" ng-click="upd_req()"> Include Monthly</input>
 											</label>
 										</div>
 									</div>				
@@ -326,7 +338,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.run">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -410,7 +422,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.ride">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -493,7 +505,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.hike">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -568,7 +580,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.ski">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -631,7 +643,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.swim">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -682,7 +694,7 @@
 									</tr>
 								</thead>
 								<tbody ng:repeat="r in view_data_activities.workout">
-									<tr ng-if="req_actcom=='all' || (req_actcom=='trainer' && r['is-on-trainer']) || (req_actcom=='commute' && r['is-commute']) || (req_actcom=='flagged' && r['is-flagged']) || (req_actcom=='manual' && r['is-manual'])" >
+									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
 										<td>{{r.athlete.name}}</td> 
@@ -706,7 +718,7 @@
 							</table>
 						</div>					
 					</div>
-	 	 			<div ng-if="view_data_analytics.all.length>0 && req_sumact=='all'" >
+	 	 			<div ng-if="view_data_analytics.all.length>0 && req_sum=='all'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -779,7 +791,7 @@
 							</table>
 						</div>					
 					</div>
-	 	 			<div ng-if="view_data_analytics.run.length>0 && req_sumact=='run'" >
+	 	 			<div ng-if="view_data_analytics.run.length>0 && req_sum=='run'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -854,7 +866,7 @@
 							</table>
 						</div>					
 					</div>
-					<div ng-if="view_data_analytics.ride.length>0 && req_sumact=='ride'" >
+					<div ng-if="view_data_analytics.ride.length>0 && req_sum=='ride'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -937,7 +949,7 @@
 							</table>
 						</div>
 					</div>
-					<div ng-if="view_data_analytics.hike.length>0 && req_sumact=='hike'" >
+					<div ng-if="view_data_analytics.hike.length>0 && req_sum=='hike'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1012,7 +1024,7 @@
 							</table>					
 						</div>
 					</div>
-					<div ng-if="view_data_analytics.ski.length>0 && req_sumact=='ski'" >
+					<div ng-if="view_data_analytics.ski.length>0 && req_sum=='ski'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1087,7 +1099,7 @@
 							</table>
 						</div>		
 					</div>
-					<div ng-if="view_data_analytics.swim.length>0 && req_sumact=='swim'" >
+					<div ng-if="view_data_analytics.swim.length>0 && req_sum=='swim'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1156,7 +1168,7 @@
 							</table>
 						</div>		
 					</div>
-					<div ng-if="view_data_analytics.workout.length>0 && req_sumact=='workout'" >
+					<div ng-if="view_data_analytics.workout.length>0 && req_sum=='workout'" >
 						<div class="table-responsive">          
 					  		<table class="table table-hover">
 								<thead class="thead-default">
@@ -1245,15 +1257,21 @@
 				$scope.loading_preview = false;
 				$scope.loading = false;
 				$scope.req_std = 'metric';
-				$scope.req_sumtyp = 'recent';
-				$scope.req_summnth = false;
-				$scope.req_sumact = 'all';
+				$scope.req_sum_type = 'recent';
+				$scope.req_sum_typemnth = false;
+				$scope.req_sum = 'all';
+				$scope.req_sum2 = 'all';
 				$scope.req_act = 'ride';
-				$scope.req_actcom = 'all';
-				$scope.req_sumcom = 'all';
-				$scope.req_sumtrain = true;
-				$scope.req_summan = true;
-				$scope.req_sumflag = false;
+				$scope.req_act2 = 'all';
+				$scope.req_act_com = true;
+				$scope.req_act_train = true;
+				$scope.req_act_man = true;
+				$scope.req_act_flag = false;
+				$scope.req_sum_all = true;
+				$scope.req_sum_com = true;
+				$scope.req_sum_train = true;
+				$scope.req_sum_man = true;
+				$scope.req_sum_flag = false;
 				$scope.req_athlete = '';
 				$scope.req_search = '';
 				
@@ -1261,6 +1279,14 @@
 				{
 					if (!$scope.loading)
 					{
+						if ($scope.req_act2 == 'com')
+						{
+							$scope.req_act_com = true;
+						}
+						if ($scope.req_sum2 == 'com')
+						{
+							$scope.req_sum_com = true;
+						}
 						$scope.resp_err = '';
 						$scope.resp_info = '';
 						$scope.preview_data = '';
@@ -1268,8 +1294,8 @@
 						$scope.view_data_analytics = '';
 						$scope.req_csv_url = $scope.get_csv_url();
 						$scope.req_preview_url = $scope.get_preview_url();
-						$scope.req_view_analytics_url = $scope.get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
-						$scope.req_view_activities_url = $scope.get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
+						$scope.req_view_analytics_url = $scope.get_view_analytics_url();
+						$scope.req_view_activities_url = $scope.get_view_activities_url();
 					}
 				}
 				$scope.get_preview_url = function()
@@ -1277,9 +1303,8 @@
 					var url = ''
 					if ($scope.req_athlete != undefined)
 					{
-						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty'
-						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y&data=1';
-						url = url + '&units=' + $scope.req_std 
+						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty&units=' + $scope.req_std
+						url = url + '&commute-only=N&commute=Y&trainer=Y&flagged=Y&manual=Y&data=1';
 					}
 					return url;
 				}
@@ -1292,36 +1317,31 @@
 					}
 					return url;
 				}
-				$scope.get_view_activities_url = function(comm, train, flag, manual)
+				$scope.get_view_activities_url = function()
 				{
 					var url = ''
 					if ($scope.req_athlete != undefined)
 					{
-						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=none'
-						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?units=' + $scope.req_std
+						url = url + '&commute-only=' + ($scope.req_act2 == 'com' ? 'Y' : 'N') + ('&commute=' + $scope.req_act_com ? 'Y' : 'N') + '&trainer=' + ($scope.req_act_train ? 'Y' : 'N') + '&flagged=' + ($scope.req_act_flag ? 'Y' : 'N') + '&manual=' + ($scope.req_act_man ? 'Y' : 'N');
 						if ($scope.req_search.length > 0)
 						{
 							url = url + '&search=' + $scope.req_search; 
 						}
-						url = url + '&units=' + $scope.req_std;
 					}
 					return url;
 				}
-				$scope.get_view_analytics_url = function(comm, train, flag, manual)
+				$scope.get_view_analytics_url = function()
 				{
 					var url = ''
 					if ($scope.req_athlete != undefined)
 					{
-						url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?style=none'
-						url = url + '&type=' + $scope.req_sumtyp
-						if (!$scope.req_summnth)
+						url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?units=' + $scope.req_std
+						url = url + '&type=' + $scope.req_sum_type
+						url = url + '&commute-only=' + ($scope.req_sum2 == 'com' ? 'Y' : 'N') + '&commute=' + ($scope.req_sum_com ? 'Y' : 'N') + '&trainer=' + ($scope.req_sum_train ? 'Y' : 'N') + '&flagged=' + ($scope.req_sum_flag ? 'Y' : 'N') + '&manual=' + ($scope.req_sum_man ? 'Y' : 'N');
+						if (!$scope.req_sum_typemnth)
 						{
 							url = url + '_mini'; 
-						}
-						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-						if ($scope.req_std.length > 0)
-						{
-							url = url + '&units=' + $scope.req_std 
 						}
 					}
 					return url;
@@ -1345,6 +1365,7 @@
 						}, 
 						function(response) 
 						{
+							console.log(response)
 							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
 							$scope.loading_preview = false;
 							$scope.loading = false;
