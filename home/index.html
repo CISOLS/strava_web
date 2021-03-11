@@ -63,7 +63,7 @@
 					<div class="card">
   						<div class="card-body">
 							<h5>Have you authorised access to your Strava data?</h5>
-							<a href="https://www.strava.com/oauth/authorize?client_id=15730&response_type=code&redirect_uri=https://api.strava.conceptintegral.com:8443/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
+							<a href="https://www.strava.com/oauth/authorize?scope=read,activity:read_all&client_id=15730&response_type=code&redirect_uri=https://api.strava.conceptintegral.com:8443/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
 							<div class="form-group" >
 								<input id="req_athlete" class="form-control form-control-danger" ng-model="req_athlete" ng-change="upd_req()" placeholder="Athlete" required/>
@@ -1301,9 +1301,7 @@
 					var url = ''
 					if ($scope.req_athlete != undefined)
 					{
-						url = 'https://api.strava.conceptintegral.com:8443/service/activitycsv/' + $scope.req_athlete + '?style=none'
-						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y';
-						url = url + '&units=' + $scope.req_std 
+						url = 'https://api.strava.conceptintegral.com:8443/service/activitycsv/' + $scope.req_athlete + '?units=' + $scope.req_std 
 					}
 					return url;
 				}
