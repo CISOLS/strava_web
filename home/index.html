@@ -1389,12 +1389,12 @@
 						then(function(response)
 						{
 							$scope.view_data_activities = response.data;
-//									console.log('run=' + response.data.run.length);
-//									console.log('ride=' + response.data.bike.length);
-//									console.log('hike=' + response.data.hike.length);
-//									console.log('swim=' + response.data.swim.length);
-//									console.log('workout=' + response.data.workout.length);
-//									console.log('ski=' + response.data.workout.length);
+							console.log('run=' + response.data.run == undefined ? 0 : response.data.run.length);
+							console.log('ride=' + response.data.ride == undefined ? 0 : response.data.bike.length);
+							console.log('hike=' + response.data.hike == undefined ? 0 : response.data.hike.length);
+							console.log('swim=' + response.data.swim == undefined ? 0 : response.data.swim.length);
+							console.log('workout=' + response.data.workout == undefined ? 0 : response.data.workout.length);
+							console.log('ski=' + response.data.ski == undefined ? 0 : response.data.workout.length);
 						//	else if (response.data.status == "INVALID_ATHLETE")
 						//	{
 						//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
