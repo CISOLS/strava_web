@@ -65,8 +65,8 @@
 							<h5>Have you authorised access to your Strava data?</h5>
 							<a href="https://www.strava.com/oauth/authorize?scope=read,activity:read,activity:read_all&client_id=15730&response_type=code&redirect_uri=https://api.strava.conceptintegral.com:8443/service/register/connect"><img class="featurette-image pull-left" src="img/btn_strava_connectwith_orange.png"></a>
 							<div class="wsite-spacer" style="height:10px;"></div>
-							<div class="form-group" >
-								<input id="req_athlete" class="form-control form-control-danger" ng-model="req_athlete" ng-change="upd_req()" placeholder="Athlete" required/>
+							<div class="form-group">
+								<input id="req_athlete" class="form-control form-control-danger" ng-model="req_athlete" ng-change="upd_req()" placeholder="Strava athlete id (re-connect to Strava if you don't know this)" required/>
 							</div>
 							<div class="form-check">
 								<div class="form-check form-check-inline">
@@ -154,6 +154,9 @@
 										</div>				
 									</div>
 									<div class="form-group">
+										<input id="req_filter" class="form-control" ng-model="req_search" ng-change="upd_req()" placeholder="Name search"/>
+									</div>
+									<div class="form-group">
 										<button type="button" class="btn btn-primary" ng-click="view_act()">View Activities</button>
 								  	</div>
 							  	</div>
@@ -236,22 +239,17 @@
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="all-mini" ng-click="upd_req()"> All Mini</input>
+												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent" ng-click="upd_req()"> Recent Only</input>
 											</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent" ng-click="upd_req()"> Recent</input>
-											</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<label class="form-check-label">
-												<input class="form-check-input" type="radio" ng-model="req_sumtyp" name="req_sumtyp" value="recent-mini" ng-click="upd_req()"> Recent Mini</input>
+												<input class="form-check-input" type="checkbox" ng-model="req_summnth" name="req_summnth" ng-click="upd_req()"> Include Monthly</input>
 											</label>
 										</div>
 									</div>				
 									<div class="form-group">
-										<button type="button" class="btn btn-primary" ng-click="view_sum()">View Summaries</button>
+										<button type="button" class="btn btn-primary" ng-click="view_sum()">View Analysis</button>
 								  	</div>
 							  	</div>
 						  	</div>
@@ -1248,6 +1246,7 @@
 				$scope.loading = false;
 				$scope.req_std = 'metric';
 				$scope.req_sumtyp = 'recent';
+				$scope.req_summnth = false;
 				$scope.req_sumact = 'all';
 				$scope.req_act = 'ride';
 				$scope.req_actcom = 'all';
@@ -1256,6 +1255,7 @@
 				$scope.req_summan = true;
 				$scope.req_sumflag = false;
 				$scope.req_athlete = '';
+				$scope.req_search = '';
 				
 				$scope.upd_req = function()
 				{
@@ -1266,23 +1266,10 @@
 						$scope.preview_data = '';
 						$scope.view_data_activities  = '';
 						$scope.view_data_analytics = '';
-						//if (req_athlete.checkValidity())	
-						//{
-							$scope.req_csv_url = $scope.get_csv_url();
-
-							$scope.req_preview_url = $scope.get_preview_url();
-							
-							$scope.req_view_analytics_url = $scope.get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
-							
-							$scope.req_view_activities_url = $scope.get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
-						//}
-						//else
-						//{
-						//	$scope.req_csv_url = '';
-						//	$scope.req_preview_url = '';
-						//	$scope.req_view_analytics_url = '';
-						//	$scope.req_view_activities_url = '';
-						//}
+						$scope.req_csv_url = $scope.get_csv_url();
+						$scope.req_preview_url = $scope.get_preview_url();
+						$scope.req_view_analytics_url = $scope.get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
+						$scope.req_view_activities_url = $scope.get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
 					}
 				}
 				$scope.get_preview_url = function()
@@ -1312,10 +1299,11 @@
 					{
 						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=none'
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-						if ($scope.req_std.length > 0)
+						if ($scope.req_search.length > 0)
 						{
-							url = url + '&units=' + $scope.req_std 
+							url = url + '&search=' + $scope.req_search; 
 						}
+						url = url + '&units=' + $scope.req_std;
 					}
 					return url;
 				}
@@ -1325,6 +1313,11 @@
 					if ($scope.req_athlete != undefined)
 					{
 						url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?style=none'
+						url = url + '&type=' + $scope.req_sumtyp
+						if (!$scope.req_summnth)
+						{
+							url = url + '_mini'; 
+						}
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
 						if ($scope.req_std.length > 0)
 						{
@@ -1335,97 +1328,91 @@
 				}
 				$scope.preview = function()
 				{
-					if (req_athlete.checkValidity())	
-					{
-						$scope.loading_preview = true;
-						$scope.loading = true;
-						$scope.resp_err = '';
-						$scope.resp_info = '';
-						$scope.preview_data = '';
-						$scope.view_data_activities  = '';
-						$scope.view_data_analytics = '';
-						$http.get($scope.req_preview_url).
-							then(function(response)
-							{
-								$scope.preview_data = JSON.stringify(response.data, undefined, 2);
-								$scope.loading_preview = false;
-								$scope.loading = false;
-							}, 
-							function(response) 
-							{
-								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-								$scope.loading_preview = false;
-								$scope.loading = false;
-							});
-					}
+					$scope.loading_preview = true;
+					$scope.loading = true;
+					$scope.resp_err = '';
+					$scope.resp_info = '';
+					$scope.preview_data = '';
+					$scope.view_data_activities  = '';
+					$scope.view_data_analytics = '';
+					console.log($scope.req_preview_url);
+					$http.get($scope.req_preview_url).
+						then(function(response)
+						{
+							$scope.preview_data = JSON.stringify(response.data, undefined, 2);
+							$scope.loading_preview = false;
+							$scope.loading = false;
+						}, 
+						function(response) 
+						{
+							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.loading_preview = false;
+							$scope.loading = false;
+						});
 				}
 				$scope.view_sum = function()
 				{
-					//if (req_athlete.checkValidity())	
-					//{
-						$scope.loading_view = true;
-						$scope.loading = true;
-						$scope.resp_err = '';
-						$scope.resp_info = '';
-						$scope.preview_data = '';
-						$scope.view_data_analytics = '';
-						$scope.view_data_activities  = '';
-						$http.get($scope.req_view_analytics_url).
-							then(function(response)
-							{
-								$scope.view_data_analytics = response.data;
-								$scope.loading_view = false;
-								$scope.loading = false;
-							}, 
-							function(response) 
-							{
-								console.log(response)
-								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-								$scope.loading_view = false;
-								$scope.loading = false;
-							});
-					//}
+					$scope.loading_view = true;
+					$scope.loading = true;
+					$scope.resp_err = '';
+					$scope.resp_info = '';
+					$scope.preview_data = '';
+					$scope.view_data_analytics = '';
+					$scope.view_data_activities  = '';
+					console.log($scope.req_view_analytics_url);
+					$http.get($scope.req_view_analytics_url).
+						then(function(response)
+						{
+							$scope.view_data_analytics = response.data;
+							$scope.loading_view = false;
+							$scope.loading = false;
+						}, 
+						function(response) 
+						{
+							console.log(response)
+							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.loading_view = false;
+							$scope.loading = false;
+						});
 				}
 				$scope.view_act = function()
 				{
-					//if (req_athlete.checkValidity())	
-					//{
-						$scope.loading_view = true;
-						$scope.loading = true;
-						$scope.resp_err = '';
-						$scope.resp_info = '';
-						$scope.preview_data = '';
-						$scope.view_data_analytics = '';
-						$scope.view_data_activities  = '';
-						$http.get($scope.req_view_activities_url).
-							then(function(response)
-							{
-								$scope.view_data_activities = response.data;
+					$scope.loading_view = true;
+					$scope.loading = true;
+					$scope.resp_err = '';
+					$scope.resp_info = '';
+					$scope.preview_data = '';
+					$scope.view_data_analytics = '';
+					$scope.view_data_activities  = '';
+					console.log($scope.req_view_activities_url);
+					$http.get($scope.req_view_activities_url).
+						then(function(response)
+						{
+							$scope.view_data_activities = response.data;
 //									console.log('run=' + response.data.run.length);
 //									console.log('ride=' + response.data.bike.length);
 //									console.log('hike=' + response.data.hike.length);
 //									console.log('swim=' + response.data.swim.length);
 //									console.log('workout=' + response.data.workout.length);
 //									console.log('ski=' + response.data.workout.length);
-							//	else if (response.data.status == "INVALID_ATHLETE")
-							//	{
-							//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
-							//	}
-							//	else
-							//	{
-							//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
-							//	}
-								$scope.loading_view = false;
-								$scope.loading = false;
-							}, 
-							function(response) 
-							{
-								console.log(response)
-								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-								$scope.loading_view = false;
-								$scope.loading = false;
-							});
-					//}
+						//	else if (response.data.status == "INVALID_ATHLETE")
+						//	{
+						//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
+						//	}
+						//	else
+						//	{
+						//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
+						//	}
+							$scope.loading_view = false;
+							$scope.loading = false;
+						}, 
+						function(response) 
+						{
+							console.log(response)
+							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.loading_view = false;
+							$scope.loading = false;
+						});
 				}
 				$scope.get_desc_display = function(desc)
 				{
