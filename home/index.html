@@ -1338,11 +1338,11 @@
 					{
 						url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?units=' + $scope.req_std
 						url = url + '&type=' + $scope.req_sum_type
-						url = url + '&commute-only=' + ($scope.req_sum2 == 'com' ? 'Y' : 'N') + '&commute=' + ($scope.req_sum_com ? 'Y' : 'N') + '&trainer=' + ($scope.req_sum_train ? 'Y' : 'N') + '&flagged=' + ($scope.req_sum_flag ? 'Y' : 'N') + '&manual=' + ($scope.req_sum_man ? 'Y' : 'N');
 						if (!$scope.req_sum_typemnth)
 						{
 							url = url + '_mini'; 
 						}
+						url = url + '&commute-only=' + ($scope.req_sum2 == 'com' ? 'Y' : 'N') + '&commute=' + ($scope.req_sum_com ? 'Y' : 'N') + '&trainer=' + ($scope.req_sum_train ? 'Y' : 'N') + '&flagged=' + ($scope.req_sum_flag ? 'Y' : 'N') + '&manual=' + ($scope.req_sum_man ? 'Y' : 'N');
 					}
 					return url;
 				}
