@@ -11,8 +11,9 @@
 		<meta property="og:title" content="Strava Activity Data Service"/>  
 		<meta property="og:description" content="Strava activity data service... view and download"/>  
 		<meta property="og:image" content="img/ci_sols_logo.png"/>  
-    	<link rel="icon" type="image/png" href="img/ci_sols_logo.png"/>
-		<link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
+		<link rel="icon" type="image/png" href="img/ci_sols_logo.png"/>
+		
+		<link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
 	<body>
 	    <style>
@@ -33,10 +34,11 @@
 		<script src="https://apis.google.com/js/platform.js" async defer></script>
 	
 		<script src="js/angular.min.js"></script>
-		<script src="js/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
-		<script src="js/popper.min.js" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+		<script src="js/jquery-3.2.1.slim.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.min.js"></script>
+
 		<script src="js/moment.js"></script>
 		<script src="js/moment-timezone.js"></script>
 
@@ -1215,301 +1217,319 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>		
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<hr class="featurette-divider"/>
+			<hr class="featurette-divider">
 	
 			<footer class="container">
-				<p class="float-right"><a href="mailto:hello@conceptintegral.com">hello@conceptintegral.com</a></p>
-				<p>&copy; 2021 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
+				<p class="float-right"><a href="mailto:hello@conceptintegral.com">hello@howmuchisapint.com</a></p>
+				<p>&copy; 2020 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
 			</footer>
-			
-			<script>
-				var app = angular.module('app', []);
-    			app.controller('appCtrl', function($scope, $http, $location, $window) 
-    			{
-					$scope.resp_err = '';
-					$scope.resp_info = '';
-					$scope.req_csv_url = ''
-					$scope.req_preview_url = ''
-					$scope.req_view_analytics_url = ''
-					$scope.req_view_activities_url = ''
-					$scope.preview_data = '';
-					$scope.view_data_activities = '';
-					$scope.view_data_analytics = '';
-					$scope.loading_preview = false;
-					$scope.loading_preview = false;
-					$scope.loading = false;
-					$scope.req_std = 'metric';
-					$scope.req_sumtyp = 'recent';
-					$scope.req_sumact = 'all';
-					$scope.req_act = 'ride';
-					$scope.req_actcom = 'all';
-					$scope.req_sumcom = 'all';
-					$scope.req_sumtrain = true;
-					$scope.req_summan = true;
-					$scope.req_sumflag = false;
-					
-				    $scope.upd_req = function()
-				    {
-				    	if (!$scope.loading)
-				    	{
-					    	$scope.resp_err = '';
-					    	$scope.resp_info = '';
-					    	$scope.preview_data = '';
-					    	$scope.view_data_activities  = '';
-							$scope.view_data_analytics = '';
-					    	//if (req_athlete.checkValidity())	
-					    	//{
-								$scope.req_csv_url = get_csv_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
-								console.log($scope.req_preview_url)
+		</div>
+	
+		<script>
+			var app = angular.module('app', []);
+			app.controller('appCtrl', function($scope, $http, $location, $window) 
+			{
+				$scope.resp_err = '';
+				$scope.resp_info = '';
+				$scope.req_csv_url = ''
+				$scope.req_preview_url = ''
+				$scope.req_view_analytics_url = ''
+				$scope.req_view_activities_url = ''
+				$scope.preview_data = '';
+				$scope.view_data_activities = '';
+				$scope.view_data_analytics = '';
+				$scope.loading_preview = false;
+				$scope.loading_preview = false;
+				$scope.loading = false;
+				$scope.req_std = 'metric';
+				$scope.req_sumtyp = 'recent';
+				$scope.req_sumact = 'all';
+				$scope.req_act = 'ride';
+				$scope.req_actcom = 'all';
+				$scope.req_sumcom = 'all';
+				$scope.req_sumtrain = true;
+				$scope.req_summan = true;
+				$scope.req_sumflag = false;
+				$scope.req_athlete = '';
+				
+				$scope.upd_req = function()
+				{
+					if (!$scope.loading)
+					{
+						$scope.resp_err = '';
+						$scope.resp_info = '';
+						$scope.preview_data = '';
+						$scope.view_data_activities  = '';
+						$scope.view_data_analytics = '';
+						//if (req_athlete.checkValidity())	
+						//{
+							$scope.req_csv_url = $scope.get_csv_url();
 
-								$scope.req_preview_url = get_preview_url($scope.req_preview_style, 'N', 'Y', 'Y', 'Y');
-								console.log($scope.req_preview_url)
-								
-								$scope.req_view_analytics_url = get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
-								console.log($scope.req_view_analytics_url)
-								
-								$scope.req_view_activities_url = get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
-								console.log($scope.req_view_activities_url);
-							//}
-							//else
-							//{
-							//	$scope.req_csv_url = '';
-							//	$scope.req_preview_url = '';
-							//	$scope.req_view_analytics_url = '';
-							//	$scope.req_view_activities_url = '';
-							//}
-						}
-				    }
-				    get_preview_url = function()
-				    {
-				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty'
+							$scope.req_preview_url = $scope.get_preview_url();
+							
+							$scope.req_view_analytics_url = $scope.get_view_analytics_url($scope.req_sumcom=='commute' ? 'Y' : 'N', $scope.req_sumtrain ? 'Y' : 'N', $scope.req_sumflag ? 'Y' : 'N', $scope.req_summan ? 'Y' : 'N');
+							
+							$scope.req_view_activities_url = $scope.get_view_activities_url($scope.req_actcom=='commute' ? 'Y' : 'N', $scope.req_acttrain ? 'Y' : 'N', $scope.req_actflag ? 'Y' : 'N', $scope.req_actman ? 'Y' : 'N');
+						//}
+						//else
+						//{
+						//	$scope.req_csv_url = '';
+						//	$scope.req_preview_url = '';
+						//	$scope.req_view_analytics_url = '';
+						//	$scope.req_view_activities_url = '';
+						//}
+					}
+				}
+				$scope.get_preview_url = function()
+				{
+					var url = ''
+					if ($scope.req_athlete != undefined)
+					{
+						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=pretty'
 						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y&data=1';
 						url = url + '&units=' + $scope.req_std 
-				    	return url;
-				    }
-				    get_csv_url = function()
-				    {
-				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activitycsv/' + $scope.req_athlete + '?style=none'
+					}
+					return url;
+				}
+				$scope.get_csv_url = function()
+				{
+					var url = ''
+					if ($scope.req_athlete != undefined)
+					{
+						url = 'https://api.strava.conceptintegral.com:8443/service/activitycsv/' + $scope.req_athlete + '?style=none'
 						url = url + '&commute-only=Y&trainer=Y&flagged=Y&manual=Y';
 						url = url + '&units=' + $scope.req_std 
-				    	return url;
-				    }
-				    get_view_activities_url = function(comm, train, flag, manual)
-				    {
-				    	var url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=none'
+					}
+					return url;
+				}
+				$scope.get_view_activities_url = function(comm, train, flag, manual)
+				{
+					var url = ''
+					if ($scope.req_athlete != undefined)
+					{
+						url = 'https://api.strava.conceptintegral.com:8443/service/activity/' + $scope.req_athlete + '?style=none'
 						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-				    	if ($scope.req_std.length > 0)
-				    	{
-				    		url = url + '&units=' + $scope.req_std 
-				    	}
-				    	return url;
-				    }
-				    get_view_analytics_url = function(comm, train, flag, manual)
-				    {
-				    	var url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?style=none'
-						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
-				    	if ($scope.req_std.length > 0)
-				    	{
-				    		url = url + '&units=' + $scope.req_std 
-				    	}
-				    	return url;
-				    }
-				    $scope.preview = function()
-				    {
-				    	if (req_athlete.checkValidity())	
-				    	{
-							$scope.loading_preview = true;
-							$scope.loading = true;
-					    	$scope.resp_err = '';
-					    	$scope.resp_info = '';
-							$scope.preview_data = '';
-							$scope.view_data_activities  = '';
-							$scope.view_data_analytics = '';
-			        		$http.get($scope.req_preview_url).
-								then(function(response)
-								{
-									$scope.preview_data = JSON.stringify(response.data, undefined, 2);
-									$scope.loading_preview = false;
-									$scope.loading = false;
-						  		}, 
-						  		function(response) 
-						  		{
-									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-									$scope.loading_preview = false;
-									$scope.loading = false;
-								});
+						if ($scope.req_std.length > 0)
+						{
+							url = url + '&units=' + $scope.req_std 
 						}
-				    }
-				    $scope.view_sum = function()
-				    {
-				    	//if (req_athlete.checkValidity())	
-				    	//{
-							$scope.loading_view = true;
-							$scope.loading = true;
-					    	$scope.resp_err = '';
-					    	$scope.resp_info = '';
-					    	$scope.preview_data = '';
-							$scope.view_data_analytics = '';
-					    	$scope.view_data_activities  = '';
-			        		$http.get($scope.req_view_analytics_url).
-								then(function(response)
-								{
-									$scope.view_data_analytics = response.data;
-									$scope.loading_view = false;
-									$scope.loading = false;
-						  		}, 
-						  		function(response) 
-						  		{
-									console.log(response)
-									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-									$scope.loading_view = false;
-									$scope.loading = false;
-								});
-						//}
-				    }
-				    $scope.view_act = function()
-				    {
-				    	//if (req_athlete.checkValidity())	
-				    	//{
-							$scope.loading_view = true;
-							$scope.loading = true;
-					    	$scope.resp_err = '';
-					    	$scope.resp_info = '';
-					    	$scope.preview_data = '';
-							$scope.view_data_analytics = '';
-					    	$scope.view_data_activities  = '';
-			        		$http.get($scope.req_view_activities_url).
-								then(function(response)
-								{
-									$scope.view_data_activities = response.data;
+					}
+					return url;
+				}
+				$scope.get_view_analytics_url = function(comm, train, flag, manual)
+				{
+					var url = ''
+					if ($scope.req_athlete != undefined)
+					{
+						url = 'https://api.strava.conceptintegral.com:8443/service/analytics/' + $scope.req_athlete + '?style=none'
+						url = url + '&commute-only=' + comm + '&trainer=' + train + '&flagged=' + flag + '&manual=' + manual;
+						if ($scope.req_std.length > 0)
+						{
+							url = url + '&units=' + $scope.req_std 
+						}
+					}
+					return url;
+				}
+				$scope.preview = function()
+				{
+					if (req_athlete.checkValidity())	
+					{
+						$scope.loading_preview = true;
+						$scope.loading = true;
+						$scope.resp_err = '';
+						$scope.resp_info = '';
+						$scope.preview_data = '';
+						$scope.view_data_activities  = '';
+						$scope.view_data_analytics = '';
+						$http.get($scope.req_preview_url).
+							then(function(response)
+							{
+								$scope.preview_data = JSON.stringify(response.data, undefined, 2);
+								$scope.loading_preview = false;
+								$scope.loading = false;
+							}, 
+							function(response) 
+							{
+								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+								$scope.loading_preview = false;
+								$scope.loading = false;
+							});
+					}
+				}
+				$scope.view_sum = function()
+				{
+					//if (req_athlete.checkValidity())	
+					//{
+						$scope.loading_view = true;
+						$scope.loading = true;
+						$scope.resp_err = '';
+						$scope.resp_info = '';
+						$scope.preview_data = '';
+						$scope.view_data_analytics = '';
+						$scope.view_data_activities  = '';
+						$http.get($scope.req_view_analytics_url).
+							then(function(response)
+							{
+								$scope.view_data_analytics = response.data;
+								$scope.loading_view = false;
+								$scope.loading = false;
+							}, 
+							function(response) 
+							{
+								console.log(response)
+								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+								$scope.loading_view = false;
+								$scope.loading = false;
+							});
+					//}
+				}
+				$scope.view_act = function()
+				{
+					//if (req_athlete.checkValidity())	
+					//{
+						$scope.loading_view = true;
+						$scope.loading = true;
+						$scope.resp_err = '';
+						$scope.resp_info = '';
+						$scope.preview_data = '';
+						$scope.view_data_analytics = '';
+						$scope.view_data_activities  = '';
+						$http.get($scope.req_view_activities_url).
+							then(function(response)
+							{
+								$scope.view_data_activities = response.data;
 //									console.log('run=' + response.data.run.length);
 //									console.log('ride=' + response.data.bike.length);
 //									console.log('hike=' + response.data.hike.length);
 //									console.log('swim=' + response.data.swim.length);
 //									console.log('workout=' + response.data.workout.length);
 //									console.log('ski=' + response.data.workout.length);
-						  		//	else if (response.data.status == "INVALID_ATHLETE")
-						  		//	{
-								//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
-						  		//	}
-						  		//	else
-						  		//	{
-								//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
-						  		//	}
-									$scope.loading_view = false;
-									$scope.loading = false;
-						  		}, 
-						  		function(response) 
-						  		{
-									console.log(response)
-									$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
-									$scope.loading_view = false;
-									$scope.loading = false;
-								});
-						//}
-				    }
-					$scope.get_desc_display = function(desc)
-					{
-						if (desc.length > 80)
-						{
-							return desc.substring(0,80) + "...";
-						}
-						else
-						{
-							return desc;
-						}
-					}
-					$scope.get_tz_date = function(dt)
-					{
-						var home = new moment(dt)
-						var local = home.tz(moment.tz.guess());
-						return local
-					}	
-					$scope.get_date_time_display = function(dt)
-					{
-						return new moment.parseZone(dt).format("ddd D-MMM-YYYY HH:mm Z")
-					}
-					$scope.get_duration_display = function(tm)
-					{
-						return tm;
-					}
-					$scope.get_number_display = function(num, dp)
-					{
-						if (num == null)
-						{
-							return "";
-						}
-						else
-						{	
-							return num.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						}
-					}
-					$scope.get_boolean_display = function(bln)
-					{
-						if (bln)
-						{
-							return "Yes";
-						}
-						else
-						{
-							return "No";
-						}
-					}
-					$scope.get_percent_display = function(num, dp)
-					{
-						if (num == null)
-						{
-							return "";
-						}
-						else
-						{	
-							num2 = num * 100;
-							return num2.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						}
-					}
-					$scope.get_period_display = function(period)
-					{
-						if (period == "ALL")
-						{
-							return "All";
-						}
-						else if (period.indexOf("DAYS") > -1)
-						{
-							return " Last " + period.substring(5,period.length-5) + " days";
-						}
-						else if (period.indexOf("LAST_") > -1)
-						{
-							if (period.indexOf("YEARS") > -1)
+							//	else if (response.data.status == "INVALID_ATHLETE")
+							//	{
+							//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
+							//	}
+							//	else
+							//	{
+							//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
+							//	}
+								$scope.loading_view = false;
+								$scope.loading = false;
+							}, 
+							function(response) 
 							{
-								return "Last " + period.substring(5,6) + " years";
-							}
-							else
-							{
-								return "Last year";
-							}
-						}
-						else if (period.length == 8)
+								console.log(response)
+								$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+								$scope.loading_view = false;
+								$scope.loading = false;
+							});
+					//}
+				}
+				$scope.get_desc_display = function(desc)
+				{
+					if (desc.length > 80)
+					{
+						return desc.substring(0,80) + "...";
+					}
+					else
+					{
+						return desc;
+					}
+				}
+				$scope.get_tz_date = function(dt)
+				{
+					var home = new moment(dt)
+					var local = home.tz(moment.tz.guess());
+					return local
+				}	
+				$scope.get_date_time_display = function(dt)
+				{
+					return new moment.parseZone(dt).format("ddd D-MMM-YYYY HH:mm Z")
+				}
+				$scope.get_duration_display = function(tm)
+				{
+					return tm;
+				}
+				$scope.get_number_display = function(num, dp)
+				{
+					if (num == null)
+					{
+						return "";
+					}
+					else
+					{	
+						return num.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					}
+				}
+				$scope.get_boolean_display = function(bln)
+				{
+					if (bln)
+					{
+						return "Yes";
+					}
+					else
+					{
+						return "No";
+					}
+				}
+				$scope.get_percent_display = function(num, dp)
+				{
+					if (num == null)
+					{
+						return "";
+					}
+					else
+					{	
+						num2 = num * 100;
+						return num2.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					}
+				}
+				$scope.get_period_display = function(period)
+				{
+					if (period == "ALL")
+					{
+						return "All";
+					}
+					else if (period.indexOf("DAYS") > -1)
+					{
+						return " Last " + period.substring(5,period.length-5) + " days";
+					}
+					else if (period.indexOf("LAST_") > -1)
+					{
+						if (period.indexOf("YEARS") > -1)
 						{
-							return period.substring(0,4) + " to date";
+							return "Last " + period.substring(5,6) + " years";
 						}
-						else if (period.length == 6)
+						else
 						{
-							var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-							return mlist[parseInt(period.substring(4,6))-1] + '-' + period.substring(0,4);
-						}
-						else 
-						{
-							return period;
+							return "Last year";
 						}
 					}
-					$scope.upd_req();
-				});
-			</script>
-		</div>
+					else if (period.length == 8)
+					{
+						return period.substring(0,4) + " to date";
+					}
+					else if (period.length == 6)
+					{
+						var mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+						return mlist[parseInt(period.substring(4,6))-1] + '-' + period.substring(0,4);
+					}
+					else 
+					{
+						return period;
+					}
+				}
+				$scope.set_athlete = function(ath)
+				{
+					$scope.req_athlete = ath
+				}
+				$scope.upd_req();
+				$scope.set_athlete(window.location.search.substr(1).split('=')[1]);
+			});
+		</script>
 	</body>
 </html>
