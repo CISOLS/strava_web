@@ -80,11 +80,11 @@
 									</label>
 								</div>				
 							</div>				
-							<div class="form-group" >
+							<!--div class="form-group" >
 								<i><span class="text-muted">
 					  			NOTE: On initial access, the request may fail and/or some activity fields may be missing (e.g. calories and location) due to Strava and Google Maps data rate limitations.
 				  				</span></i>
-						  	</div>
+						  	</div-->
 					  	</div>
 				  	</div>
 	
@@ -337,7 +337,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_activities.run | orderBy: ['\u0022start-time\u0022'])">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.run | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -421,7 +421,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_activities.ride">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.ride | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -504,7 +504,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_activities.hike">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.hike | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -579,7 +579,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_activities.ski">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.ski | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -642,7 +642,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_activities.swim">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.swim | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -693,7 +693,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_activities.workout">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.workout | orderBy: ['\u0022start-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
@@ -755,7 +755,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.all">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.all | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -829,7 +829,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.run">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.run | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -908,7 +908,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.ride">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ride | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -987,7 +987,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.hike">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.hike | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1062,7 +1062,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.ski">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ski | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1134,7 +1134,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.swim">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.swim | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1199,7 +1199,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in view_data_analytics.workout">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.workout | orderBy: ['\u0022end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
