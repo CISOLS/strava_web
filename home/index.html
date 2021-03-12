@@ -1450,17 +1450,17 @@
 				{
 					if (error.status == 401)
 					{
-						$scope.resp_err_type = "OOPS!
+						$scope.resp_err_type = "OOPS!";
 						$scope.resp_err = "Strava access is not authorised... please connect (hit the big orange button at the top of the page)";
 					}
 					else if (error.status == 413)
 					{
-						$scope.resp_err_type = "OOPS!
+						$scope.resp_err_type = "OOPS!";
 						$scope.resp_err = "Strava data rate limit has been exceeded (arrhhh!)... please try again in about 15 mins";
 					}
 					else
 					{
-						$scope.resp_err_type = "ERROR!
+						$scope.resp_err_type = "ERROR!";
 						$scope.resp_err = (error.statusText == '' ? 'Unknown' : error.statusText) + " [" + error.status + "]";
 					}
 				}
