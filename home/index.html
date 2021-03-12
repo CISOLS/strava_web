@@ -1366,7 +1366,7 @@
 						function(response) 
 						{
 							console.log(response)
-							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.get_error_display(response)
 							$scope.loading_preview = false;
 							$scope.loading = false;
 						});
@@ -1391,7 +1391,7 @@
 						function(response) 
 						{
 							console.log(response)
-							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.get_error_display(response)
 							$scope.loading_view = false;
 							$scope.loading = false;
 						});
@@ -1448,10 +1448,25 @@
 						function(response) 
 						{
 							console.log(response)
-							$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+							$scope.get_error_display(response)
 							$scope.loading_view = false;
 							$scope.loading = false;
 						});
+				}
+				$scope.get_error_display = function(error)
+				{
+					if (response.status == 401)
+					{
+						$scope.resp_err = "Strava access is not authorised... please connect (hit the big orange button at the top of the page";
+					}
+					else if (response.status == 413)
+					{
+						$scope.resp_err = "Strava data rate limit has been exceeded (arrhhh!)... please try again in 15 mins";
+					}
+					else
+					{
+						$scope.resp_err = (response.statusText == '' ? 'Unknown' : response.statusText) + " [" + response.status + "]";
+					}
 				}
 				$scope.get_desc_display = function(desc)
 				{
