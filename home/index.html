@@ -829,7 +829,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.run | orderBy: ['\u0022period-end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.run | orderBy: ['\u0022period-end-time\u0022','\u0022period-begin-time\u0022',]:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -907,7 +907,7 @@
 										<th style="text-align: center">Avg Daily Calories</th> 
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
-								</thead>
+								</thead>	 
 								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ride | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
@@ -1521,6 +1521,32 @@
 					{	
 						num2 = num * 100;
 						return num2.toFixed(dp).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					}
+				}
+				$scope.summary_comparator = function(sum1, sum2)
+				{
+					var st1 = new moment(sum1['period-begin-time'])
+					var st2 = new moment(sum2['period-begin-time'])
+					var end1 = new moment(sum1['period-end-time'])
+					var end2 = new moment(sum2['period-end-time'])
+					if (end1 < end2)
+					{
+						return -1;
+					}
+					else if (end1 > end2)
+					{
+						return 1;
+					}
+					else
+					{
+						if (st1 < st2)
+						{
+							return -1;
+						}
+						else if (st1 > st2)
+						{
+							return 1;
+						}
 					}
 				}
 				$scope.get_period_display = function(period)
