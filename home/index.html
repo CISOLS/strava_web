@@ -755,7 +755,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.all | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.all | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -829,7 +829,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.run | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.run | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -908,7 +908,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ride | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ride | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -987,7 +987,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.hike | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.hike | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1062,7 +1062,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ski | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.ski | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1134,7 +1134,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.swim | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.swim | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1199,7 +1199,7 @@
 										<th style="text-align: center">Avg Daily Suffer Score</th> 
 									</tr>
 								</thead>
-								<tbody ng:repeat="r in sorted_data = (view_data_analytics.workout | orderBy: ['\u0022end-time\u0022']:true)">
+								<tbody ng:repeat="r in sorted_data = (view_data_analytics.workout | orderBy: ['\u0022period-end-time\u0022']:true)">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td>{{r.athlete.name}}</td> 
@@ -1236,7 +1236,7 @@
 	
 			<footer class="container">
 				<p class="float-right"><a href="mailto:hello@conceptintegral.com">hello@howmuchisapint.com</a></p>
-				<p>&copy; 2020 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
+				<p>&copy; 2021 <a href="https://www.conceptintegral.com">Concept Integral</a></p>
 			</footer>
 		</div>
 	
