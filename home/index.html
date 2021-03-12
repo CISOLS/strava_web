@@ -337,7 +337,7 @@
 										<th style="text-align: center">Flagged</th>
 									</tr>
 								</thead>
-								<div ng:repeat="r in sorted_data = (view_data_activities.run | orderBy: ['\u0022start-time\u0022'])">
+								<tbody ng:repeat="r in sorted_data = (view_data_activities.run | orderBy: ['\u0022start-time\u0022'])">
 									<tr>
 										<td>{{$index+1}}</td>
 										<td><a href="https://www.strava.com/activities/{{r.id}}" target="_blank">{{r.id}}</a></td>
