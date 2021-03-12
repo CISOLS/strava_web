@@ -293,7 +293,7 @@
 						<pre>{{preview_data}}</pre>
 	 	 			</div>
 	 	 			<div ng-if="resp_err!=''" >
-		  				<div class="text-danger"><b>Error: </b>{{resp_err}}</div>
+		  				<div class="text-danger"><b>{{resp_err_type}} </b>{{resp_err}}</div>
 	 	 			</div>
 	 	 			<div ng-if="resp_info!=''" >
 		  				<div class="text-info">{{resp_info}}</div>
@@ -1245,6 +1245,7 @@
 			app.controller('appCtrl', function($scope, $http, $location, $window) 
 			{
 				$scope.resp_err = '';
+				$scope.resp_err_type = 'ERROR';
 				$scope.resp_info = '';
 				$scope.req_csv_url = ''
 				$scope.req_preview_url = ''
@@ -1434,14 +1435,6 @@
 							{
 								console.log('ski=' + response.data.ski.length);
 							}
-						//	else if (response.data.status == "INVALID_ATHLETE")
-						//	{
-						//		$scope.resp_err = "Athlete data access is not authorised... connect with Strava required";
-						//	}
-						//	else
-						//	{
-						//		$scope.resp_err = response.data["error-message"] + " [" + response.data.status + "]";
-						//	}
 							$scope.loading_view = false;
 							$scope.loading = false;
 						}, 
@@ -1457,14 +1450,17 @@
 				{
 					if (error.status == 401)
 					{
+						$scope.resp_err_type = "OOPS!
 						$scope.resp_err = "Strava access is not authorised... please connect (hit the big orange button at the top of the page)";
 					}
 					else if (error.status == 413)
 					{
+						$scope.resp_err_type = "OOPS!
 						$scope.resp_err = "Strava data rate limit has been exceeded (arrhhh!)... please try again in about 15 mins";
 					}
 					else
 					{
+						$scope.resp_err_type = "ERROR!
 						$scope.resp_err = (error.statusText == '' ? 'Unknown' : error.statusText) + " [" + error.status + "]";
 					}
 				}
