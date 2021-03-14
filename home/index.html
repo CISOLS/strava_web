@@ -321,6 +321,7 @@
 										<th style="text-align: center">Moving Time</th>
 										<th style="text-align: center">Avg Pace</th>
 										<th style="text-align: center">Max Pace</th>
+										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Min Elevation</th>
 										<th style="text-align: center">Max Elevation</th> 
 										<th style="text-align: center">Elevation Gain</th>
@@ -330,7 +331,6 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
-										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Shoe</th>
 										<th style="text-align: center">Commute</th>
 										<th style="text-align: center">On Trainer</th>
@@ -359,6 +359,7 @@
 										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
 										<td ng-if="r['max-pace']" style="text-align: right">{{get_duration_display(r["max-pace"])}}</td>
 										<td ng-if="!r['max-pace']" style="text-align: right"></td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
@@ -368,7 +369,6 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
 										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
@@ -402,6 +402,7 @@
 										<th style="text-align: center">Moving Time</th>
 										<th style="text-align: center">Avg Speed</th>
 										<th style="text-align: center">Max Speed</th>
+										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Min Elevation</th>
 										<th style="text-align: center">Max Elevation</th> 
 										<th style="text-align: center">Elevation Gain</th>
@@ -411,7 +412,6 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
-										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Kilojoules</th>
 										<th style="text-align: center">Avg Watts</th>
 										<th style="text-align: center">Max Watts</th>
@@ -443,6 +443,7 @@
 										<td style="text-align: right">{{get_duration_display(r["moving-time"])}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-speed"],2)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-speed"],2)}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["min-elevation"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-elevation"],0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["elevation-gain"],0)}}</td>
@@ -452,7 +453,6 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r.kilojoules,0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-watts"],0)}}</td>
@@ -815,6 +815,7 @@
 										<th style="text-align: center">Suffer Score</th>
 	
 										<th style="text-align: center">Avg Pace</th>
+										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Avg Heart Rate</th> 
 	
 										<th style="text-align: center">Avg Distance</th>
@@ -850,6 +851,7 @@
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 	
 										<td style="text-align: right">{{get_duration_display(r["avg-pace"])}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["avg-heart-rate"],0)}}</td> 
 	
 										<td style="text-align: right">{{get_number_display(r["distance-per-activity"],2)}}</td>
