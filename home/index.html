@@ -332,6 +332,7 @@
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
 										<th style="text-align: center">Shoe</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">Commute</th>
 										<th style="text-align: center">On Trainer</th>
 										<th style="text-align: center">Manual</th>
@@ -370,6 +371,7 @@
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -417,6 +419,7 @@
 										<th style="text-align: center">Max Watts</th>
 										<th style="text-align: center">Weighted Avg Watts</th>
 										<th style="text-align: center">Bike</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">Commute</th>
 										<th style="text-align: center">On Trainer</th>
 										<th style="text-align: center">Manual</th>
@@ -458,6 +461,7 @@
 										<td style="text-align: right">{{get_number_display(r["max-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts"],0)}}</td>
 										<td>{{get_bike_display(r.bike.name)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -500,6 +504,7 @@
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
 										<th style="text-align: center">Shoe</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">Commute</th>
 										<th style="text-align: center">On Trainer</th>
 										<th style="text-align: center">Manual</th>
@@ -536,6 +541,7 @@
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -577,6 +583,7 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">Manual</th>
 										<th style="text-align: center">Flagged</th>
 									</tr>
@@ -611,6 +618,7 @@
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
 										<td>{{get_bike_display(r.bike.name)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
 										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
 									</tr>
@@ -640,6 +648,7 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">Manual</th>
 										<th style="text-align: center">Flagged</th>
 									</tr>
@@ -663,6 +672,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
 										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
 									</tr>
@@ -690,6 +700,7 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Device</th>
 										<th style="text-align: center">On Trainer</th>
 										<th style="text-align: center">Manual</th>
 										<th style="text-align: center">Flagged</th>
@@ -712,6 +723,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
+										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
 										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
