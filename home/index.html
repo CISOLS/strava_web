@@ -161,7 +161,7 @@
 										</div>				
 									</div>
 									<div class="form-group">
-										<input id="req_filter" class="form-control" ng-model="req_search" ng-change="upd_req()" placeholder="Name search"/>
+										<input id="req_filter" class="form-control" ng-model="req_search" ng-change="upd_req()" placeholder="Activity name word search"/>
 									</div>
 									<div class="form-group">
 										<button type="button" class="btn btn-primary" ng-click="view_act()">View Activities</button>
@@ -330,6 +330,7 @@
 										<th style="text-align: center">Avg Temp</th> 
 										<th style="text-align: center">Calories</th> 
 										<th style="text-align: center">Suffer Score</th>
+										<th style="text-align: center">Avg Cadence</th>
 										<th style="text-align: center">Shoe</th>
 										<th style="text-align: center">Commute</th>
 										<th style="text-align: center">On Trainer</th>
@@ -367,7 +368,8 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{r.shoe.brand}} {{r.shoe.model}}</td>
+										<td style="text-align: right">{{get_number_display(r["avg-cadence"],0)}}</td>
+										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -455,7 +457,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts"],0)}}</td>
-										<td>{{r.bike.name}}</td>
+										<td>{{get_bike_display(r.bike.name)}}</td>
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -533,7 +535,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{r.shoe.brand}} {{r.shoe.model}}</td>
+										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
@@ -608,7 +610,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{r.bike.name}}</td>
+										<td>{{get_bike_display(r.bike.name)}}</td>
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
 										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
 									</tr>
@@ -1475,6 +1477,21 @@
 					{
 						return desc;
 					}
+				}
+				$scope.get_shoe_display = function(brand,model)
+				{
+					if (brand=='Unknown' && model == 'Unknown')
+					{
+						return 'Unknown';
+					}
+					else
+					{
+						return brand + ' ' + model;
+					}
+				}
+				$scope.get_bike_display = function(name)
+				{
+					return name;
 				}
 				$scope.get_tz_date = function(dt)
 				{
