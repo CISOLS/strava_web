@@ -370,7 +370,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
+										<td>{{get_gear_display(r.shoe)}}</td>
 										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
@@ -460,7 +460,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["max-watts"],0)}}</td>
 										<td style="text-align: right">{{get_number_display(r["weighted-avg-watts"],0)}}</td>
-										<td>{{get_bike_display(r.bike.name)}}</td>
+										<td>{{get_gear_display(r.bike)}}</td>
 										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
@@ -540,7 +540,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{get_shoe_display(r.shoe.brand,r.shoe.model)}}</td>
+										<td>{{get_gear_display(r.shoe)}}</td>
 										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-commute"])}}</td> 
 										<td>{{get_boolean_display(r["is-on-trainer"])}}</td> 
@@ -617,7 +617,7 @@
 										<td style="text-align: right">{{get_number_display(r["avg-temp"],1)}}</td> 
 										<td style="text-align: right">{{get_number_display(r.calories,0)}}</td> 
 										<td style="text-align: right">{{get_number_display(r["suffer-score"],0)}}</td>
-										<td>{{get_bike_display(r.bike.name)}}</td>
+										<td>{{get_gear_display(r.bike)}}</td>
 										<td>{{r["device-name"]}}</td> 
 										<td>{{get_boolean_display(r["is-manual"])}}</td> 
 										<td>{{get_boolean_display(r["is-flagged"])}}</td> 
@@ -1492,20 +1492,20 @@
 						return desc;
 					}
 				}
-				$scope.get_shoe_display = function(brand,model)
+				$scope.get_gear_display = function(gear)
 				{
-					if (brand=='Unknown' && model == 'Unknown')
+					if (gear == null)
 					{
-						return 'Unknown';
+						return '';
+					}
+					else if (gear.name == undefined || gear.name == null || gear.name = '')
+					{
+						return gear.brand = ' ' + gear.model;
 					}
 					else
 					{
-						return brand + ' ' + model;
+						return gear.name + ' (' + gear.brand = ' ' + gear.model + ')';
 					}
-				}
-				$scope.get_bike_display = function(name)
-				{
-					return name;
 				}
 				$scope.get_tz_date = function(dt)
 				{
