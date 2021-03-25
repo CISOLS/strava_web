@@ -1595,7 +1595,7 @@
 					{
 						if (period.indexOf("YEARS") > -1)
 						{
-							return "Last " + period.substring(5,6) + " years";
+							return "Last " + period.substring(5,period.indexOf("YEARS")) + " years";
 						}
 						else
 						{
